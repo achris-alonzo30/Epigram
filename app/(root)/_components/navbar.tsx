@@ -1,6 +1,8 @@
-import { MenuIcon } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
 import { UserButton } from "@clerk/nextjs";
+
+import { ThemeToggle } from "@/components/theme-toggle";
+
+import { MenuIcon } from "lucide-react";
 
 type NavbarProps = {
     isCollapse: boolean;
@@ -21,3 +23,4 @@ export const Navbar = ({ isCollapse, onResetWidth }: NavbarProps) => {
         </div>
     )
 }
+

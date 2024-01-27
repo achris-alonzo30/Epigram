@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { SidebarLinks } from "@/lib/map-links";
 
 import { ChevronLeft } from "lucide-react";
-import { Navbar } from "./navbar";
+import { Navbar } from './navbar';
 
 export const LeftSidebar = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
