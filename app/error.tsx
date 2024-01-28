@@ -37,7 +37,7 @@ export default function GlobalError ({ error, reset }: ErrorProps) {
               <span>Go back</span>
             </button>
 
-            <button className="w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600" >
+            <button className="w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-[#7600FF] rounded-lg shrink-0 sm:w-auto hover:bg-[#7600FF]/70 dark:hover:bg-[#7600FF]/60 dark:bg-[#7600FF]/70" >
                 <Link href="/">
                   Take me home  
                 </Link>

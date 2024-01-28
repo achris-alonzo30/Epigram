@@ -1,20 +1,19 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+
 import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "@/components/ui/textarea"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -49,7 +48,7 @@ export function FormInput() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="hidden">Submit</Button>
       </form>
     </Form>
   );

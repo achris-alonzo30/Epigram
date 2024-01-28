@@ -1,4 +1,4 @@
-import { CardPost } from "./card-post"
+import { CardPost } from "@/components/card-post"
 
 export const Feed = () => {
     return (

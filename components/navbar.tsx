@@ -1,11 +1,9 @@
 import { UserButton } from "@clerk/nextjs";
 
-
-
 import { MenuIcon } from "lucide-react";
 
-import { Logo } from "./logo";
-import { SearchInput } from "./search-input";
+import { Logo } from "@/components/logo";
+import { SearchInput } from "@/components/search-input";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 type NavbarProps = {

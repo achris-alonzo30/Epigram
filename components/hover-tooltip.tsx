@@ -11,7 +11,7 @@ type HoverContentProps = {
     title: string;
 }
   
-export const HoverContent = ({ title, children }: HoverContentProps) => {
+export const HoverTooltip = ({ title, children }: HoverContentProps) => {
     return (
         <TooltipProvider>
   <Tooltip>
