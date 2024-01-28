@@ -10,32 +10,27 @@ import {
 export const SidebarLinks = [
     {
         name: "Home",
-        link: "/",
+        href: "/",
         icon: Home
     }, 
     {
         name: "Profile",
-        link: "/profile",
+        href: "/profile",
         icon: UserRound
     },
     {
-        name: "Search",
-        link: "/search",
-        icon: Search
-    },
-    {
         name: "Create Post",
-        link: "/create-post",
+        href: "/create-post",
         icon: Plus
     },
     {
         name: "Saved Posts",
-        link: "/saved-posts",
+        href: "/saved-posts",
         icon: Bookmark
     },
     {
         name: "Settings",
-        link: "/settings",
+        href: "/settings",
         icon: Settings
     },
 ]
