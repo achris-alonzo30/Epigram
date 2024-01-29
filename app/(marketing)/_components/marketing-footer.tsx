@@ -8,12 +8,12 @@ import { Separator } from "@/components/ui/separator";
 export const MarketingFooter = () => {
   return (
     <footer className="my-3 border-t border-slate-200 md:my-5 dark:border-slate-700">
-      <div className="container px-6 py-8 mx-auto">
+      <div className="container px-6 py-4 mx-auto">
         <div className="flex flex-col items-center text-center">
           <Logo />
         </div>
 
-        <div className="flex flex-wrap justify-center mt-6 gap-x-3  ">
+        <div className="flex flex-wrap justify-center mt-6 gap-x-3">
           <Link
             href="/"
             className="text-sm text-slate-600 transition-colrs duration-300 hover:text-[#7600FF]/70 dark:text-slate-300 dark:hover:text-[#7600FF]/90"

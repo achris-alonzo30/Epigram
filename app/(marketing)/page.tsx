@@ -15,14 +15,10 @@ const MarketingPage = () => {
       <MarketingHeader />
       <div className="flex flex-col items-center justify-center">
         <MarketingHeros />
-
         <MarketingImage />
-
         <MarketingFeatures />
       </div>
-      
       <MarketingCTA />
-
       <MarketingFooter />
     </section>
   );

@@ -14,13 +14,16 @@ const fadeInAnimationVariants = {
     y: 0,
     transition: {
       delay: 1,
+      duration: 1,
+      ease: "easeInOut",
+      type: "spring",
     },
   },
 };
 
 export const MarketingFeatures = () => {
   return (
-    <div className="container px-6 py-10 mx-auto">
+    <div className="container px-6 md:py-24 sm:py-12 mx-auto">
       <motion.h1
         className="text-3xl font-semibold text-center text-slate-800 capitalize lg:text-4xl dark:text-white"
         initial={{ opacity: 0, y: 100 }}

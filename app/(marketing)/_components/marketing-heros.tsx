@@ -7,7 +7,7 @@ import { ButtonRotatingBackgroundGradient } from "@/components/button-rotating-b
 
 export const MarketingHeros = () => {
   return (
-    <div className="relative items-center w-full px-5 pt-12 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
+    <div className="relative items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
       <div className="max-w-3xl mx-auto text-center">
         <motion.p
           className="text-4xl font-extrabold tracking-tight md:text-6xl"
