@@ -4,8 +4,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { ButtonRotatingBackgroundGradient } from "@/components/button-rotating-background-gradient";
+import { SignInButton, useUser } from "@clerk/nextjs";
+
 
 export const MarketingHeros = () => {
+  const { isSignedIn } = useUser();
   return (
     <div className="relative items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
       <div className="max-w-3xl mx-auto text-center">
@@ -19,7 +22,7 @@ export const MarketingHeros = () => {
             ease: "easeInOut",
             type: "spring",
           }}
-          viewport={{ once:true}}
+          viewport={{ once: true }}
         >
           Unlock Your Best Self <br />
           with{" "}
@@ -37,7 +40,7 @@ export const MarketingHeros = () => {
             ease: "easeInOut",
             type: "spring",
           }}
-          viewport={{ once:true}}
+          viewport={{ once: true }}
         >
           Seamlessly Blend Fun and Work Modes for Ultimate Health Management
         </motion.p>
@@ -52,11 +55,14 @@ export const MarketingHeros = () => {
           ease: "easeInOut",
           type: "spring",
         }}
-        viewport={{ once:true}}
+        viewport={{ once: true }}
       >
-        <ButtonRotatingBackgroundGradient>
-          <Link href="/sign-in">Get Started Now</Link>
-        </ButtonRotatingBackgroundGradient>
+
+        <SignInButton >
+          <ButtonRotatingBackgroundGradient>
+            Get Started Now
+          </ButtonRotatingBackgroundGradient>
+        </SignInButton>
       </motion.div>
     </div>
   );

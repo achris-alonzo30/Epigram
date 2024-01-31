@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-
 import { motion } from "framer-motion";
-
+import { SignInButton } from "@clerk/nextjs";
 import { MarketingCTALinks } from "@/lib/map-links";
+import { Button } from "@/components/ui/button";
 
 export const MarketingCTA = () => {
   return (
@@ -53,12 +52,11 @@ export const MarketingCTA = () => {
             }}
             viewport={{ once: true }}
           >
-            <Link
-              href="/sign-in"
-              className="items-center mt-4 inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-full text-center w-full transform hover:-translate-y-1 transition duration-400"
-            >
-              {link.buttonTitle}
-            </Link>
+            <SignInButton>
+              <Button className="items-center mt-4 inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-full text-center w-full transform hover:-translate-y-1 transition duration-400" >
+                {link.buttonTitle}
+              </Button>
+            </SignInButton>
           </motion.div>
         </div>
       ))}

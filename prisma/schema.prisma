@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+enum Mode {
+  FUN
+  WORK
+}
+
+model User {
+  id String @id @default(cuid())
+  username String @unique
+  profileImageUrl String?
+  bio String? 
+  backgroundImageUrl String?
+
+  posts Post[] @relation("UserPost")
+  savedPosts Post[] @relation("SavedPosts")
+  likedPosts Post[] @relation("LikedPosts")
+
+  userSettings UserSetting[] @relation("UserSettings")
+
+  commenter Comment[] @relation("Commenter")
+
+  following Follow[] @relation("Following")
+  followedBy Follow[] @relation("FollowedBy")
+
+  blocking Block[] @relation("Blocking")
+  blockedBy Block[] @relation("BlockedBy")
+
+
+  userCloseFriends CloseFriends[] @relation("UserCloseFriends")
+  closeFriendCloseFriends CloseFriends[] @relation("CloseFriendCloseFriends")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+}
+
+model Post {
+  id String @id @default(cuid())
+  caption String 
+  tags String[] 
+  postImageUrl String?
+  postVideoUrl String?
+  location String?
+  views Int
+
+  likedBy User[] @relation("SavedPosts")
+  savedBy User[] @relation("LikedPosts")
+
+  creatorId String
+  creator User @relation("UserPost", fields: [creatorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([creatorId])
+}
+
+model UserSetting {
+  id String @id @default(cuid())
+  isPublic Boolean
+  mode Mode
+
+  userId String
+  userSetting User @relation("UserSettings", fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Follow {
+  id String @id @default(cuid())
+
+  followerId  String
+  followingId String
+
+  follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model CloseFriends {
+  id String @id @default(cuid())
+
+  userCloseFriendId String
+  closeFriendCloseFriendsId String
+  userCloseFriend User @relation("UserCloseFriends", fields: [userCloseFriendId], references: [id], onDelete: Cascade)
+  closeFriendCloseFriends User @relation("CloseFriendCloseFriends", fields: [closeFriendCloseFriendsId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userCloseFriendId, closeFriendCloseFriendsId])
+  @@index([userCloseFriendId])
+  @@index([closeFriendCloseFriendsId])
+}
+
+model Block {
+  id        String @id @default(uuid())
+  blockerId String
+  blockedId String
+  blocker   User   @relation(name: "Blocking", fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked   User   @relation(name: "BlockedBy", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  @@unique([blockerId, blockedId])
+  @@index([blockerId])
+  @@index([blockedId])
+}
+
+model Comment {
+  id String @id @default(cuid())
+  comment String @db.Text
+
+  commenterId String
+  commenter User @relation("Commenter", fields: [commenterId], references: [id], onDelete: Cascade)
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([commenterId])
+}
+
+
+

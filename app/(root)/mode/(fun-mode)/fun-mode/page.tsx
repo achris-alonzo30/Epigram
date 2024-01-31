@@ -2,6 +2,7 @@
 import { Navbar } from "@/components/navbar";
 import {LeftSidebar} from "@/components/left-sidebar";
 import { RightSidebar } from "@/components/right-sidebar";
+import { Feed } from "@/components/feed";
 
 
 const FunModePage = () => {
@@ -11,6 +12,7 @@ const FunModePage = () => {
             <Navbar />
             <LeftSidebar />
             <RightSidebar />
+            <Feed />
         </div>
     )
 }
