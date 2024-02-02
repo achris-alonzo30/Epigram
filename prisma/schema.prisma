@@ -19,6 +19,7 @@ enum Mode {
 
 model User {
   id String @id @default(cuid())
+  userId String @unique
   username String @unique
   profileImageUrl String?
   bio String? 
@@ -70,8 +71,8 @@ model Post {
 
 model UserSetting {
   id String @id @default(cuid())
-  isPublic Boolean
-  mode Mode
+  isPublic Boolean?
+  mode Mode?
 
   userId String
   userSetting User @relation("UserSettings", fields: [userId], references: [id])

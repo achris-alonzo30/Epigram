@@ -4,8 +4,10 @@ import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 
 import { Logo } from "@/components/logo";
 import { Separator } from "@/components/ui/separator";
+import { TextGradient } from "@/components/animated-ui/text-gradient";
 
 export const MarketingFooter = () => {
+  const year = new Date().getFullYear();
   return (
     <footer className="my-3 border-t border-slate-200 md:my-5 dark:border-slate-700">
       <div className="container px-6 py-4 mx-auto">
@@ -45,10 +47,10 @@ export const MarketingFooter = () => {
 
       <div className="flex flex-col items-center sm:flex-row sm:justify-between px-6 pb-4">
         <p className="text-sm text-slate-500 dark:text-slate-300">
-          © 2023. All rights reserved - Design by{" "}
-          <strong className="inline-flex animate-text-gradient bg-gradient-to-r from-[#FFA0A0] via-[#7600FF] to-[#c7d2fe] bg-[240%_auto] bg-clip-text text-sm font-extrabold text-transparent">
+          © {year}. All Rights Reserved - Design by{" "}
+          <TextGradient fontSize={["text-sm"]} fontStyle="font-extrabold">
             Lonzo Chris
-          </strong>
+          </TextGradient>
         </p>
 
         <div className="flex -mx-2 mt-2">

@@ -1,33 +1,38 @@
 import Image from "next/image";
 
 import {
+  Star,
+  Heart,
+  MessageCircle,
+  MoreHorizontal
+} from "lucide-react";
+
+import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Dropdown } from "@/components/dropdown";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { FormInput } from "@/components/form-input";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Bookmark, Heart, MessageCircle } from "lucide-react";
 
-type CardWrapperProps = {
-  username: string;
-  avatarUrl?: string;
-  postDescription?: string;
-  postTitle?: string;
-  postImageUrl?: string;
-};
-
-export const CardPost = () => {
+export const PostCard = () => {
+  // Todo: Fetch all the currentUser posts
   return (
-    <Card className="w-[450px] h-auto border-0 shadow-md ">
+    <Card className="w-full md:w-[450px] h-fit border-0 shadow-md rounded-xl px-1 ">
       <CardHeader>
         <CardTitle className="flex items-center justify-between px-3 py-2">
           <div className="flex items-center gap-x-2">
+            {/* TODO: Add a badge in the avatar that shows that the user is verified */}
             <Avatar>
               <AvatarImage
                 src="https://github.com/shadcn.png"
@@ -41,7 +46,15 @@ export const CardPost = () => {
             </span>
           </div>
           <div>
-            <Dropdown />
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger>
+                <MoreHorizontal className="h-6 w-6 hover:bg-gray-500 border-none rounded-md" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem>Delete</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </CardTitle>
       </CardHeader>
@@ -61,7 +74,7 @@ export const CardPost = () => {
         <div className="flex items-center gap-x-3 text-gray-500">
           <Heart className="h-5 w-5" />
           <MessageCircle className="h-5 w-5" />
-          <Bookmark className="h-5 w-5" />
+          <Star className="h-5 w-5" />
         </div>
 
         <p className="line-clamp-2 text-muted-foreground text-sm">

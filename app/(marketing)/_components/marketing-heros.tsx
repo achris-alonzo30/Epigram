@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { ButtonRotatingBackgroundGradient } from "@/components/button-rotating-background-gradient";
-import { SignInButton, useUser } from "@clerk/nextjs";
-
+import { TextGradient } from "@/components/animated-ui/text-gradient";
+import { ButtonRotatingBackgroundGradient } from "@/components/animated-ui/button-rotating-background-gradient";
 
 export const MarketingHeros = () => {
-  const { isSignedIn } = useUser();
+
   return (
     <div className="relative items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
       <div className="max-w-3xl mx-auto text-center">
@@ -26,12 +25,12 @@ export const MarketingHeros = () => {
         >
           Unlock Your Best Self <br />
           with{" "}
-          <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#FFA0A0] via-[#7600FF] to-[#c7d2fe] bg-[240%_auto] bg-clip-text text-4xl md:text-6xl font-extrabold text-transparent">
+          <TextGradient fontSize={["md:text-6xl text-4xl"]} fontStyle="font-extrabold">
             iHealth
-          </span>
+          </TextGradient>
         </motion.p>
         <motion.p
-          className="max-w-xl mx-auto mt-8 text-base lg:text-lg text-slate-400"
+          className="max-w-xl mx-auto mt-8 text-base lg:text-lg dark:text-gray-500 text-slate-600"
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
@@ -57,12 +56,9 @@ export const MarketingHeros = () => {
         }}
         viewport={{ once: true }}
       >
-
-        <SignInButton >
-          <ButtonRotatingBackgroundGradient>
-            Get Started Now
-          </ButtonRotatingBackgroundGradient>
-        </SignInButton>
+        <ButtonRotatingBackgroundGradient>
+            <Link href="/create-profile">Get Started Now</Link>
+        </ButtonRotatingBackgroundGradient>
       </motion.div>
     </div>
   );

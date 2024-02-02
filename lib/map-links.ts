@@ -45,32 +45,32 @@ export const SidebarLinks = [
 export const FeatureLinks = [
     {
         title: "Dual Mode Engagement",
-        description: "iHealth provides a unique dual mode engagement, offering both Fun Mode for social interactions and Work Mode for professional client-trainer relationships. This caters to a diverse range of user needs within a single platform.",
+        description: "We provide a unique dual mode engagement, offering both Fun Mode for social interactions and Work Mode for professional client-trainer relationships.",
         icon: Blend
     },
     {
         title: "Comprehensive Health Data Tracking",
-        description: "The Work Mode's focus on health data tracking streamlines communication between clients and trainers, enabling users to input and monitor essential health metrics. This centralized dashboard enhances efficiency and collaboration in health management.",
+        description: "The Work Mode's focus on health data tracking and with centralized dashboards, enabling users to input and monitor essential health metrics.",
         icon: Activity
     },
     {
        title: "Efficient Calendar Functionality",
-       description: "The simple and efficient calendar functionality in iHealth's Work Mode allows seamless scheduling of meetings and appointments. Notifications and email alerts ensure timely communication and coordination between clients and trainers.",
+       description: "Work Mode is equipped with a user-friendly calendar where users can schedule meetings and appointments. Additionally, timely notifications and email alerts ensure smooth communication.",
        icon: Calendar
     },
     {
        title: "Empowering Supportive Community",
-       description: "The Fun Mode's community-building features, such as group creation and challenges, foster a supportive environment. Users can encourage and challenge each other, earning rewards that enhance customization options and user engagement.",
+       description: "We ensure a welcoming and inclusive environment for users. This a place for users to encourage and challenge each other, earn rewards and increase user engagement.",
        icon: HeartHandshake
     },
     {
        title: "Privacy Preferences",
-       description: "The inclusion of privacy preferences empowers users to control the visibility of their health information. Users can choose between public, private, or shared only with their trainer, ensuring a personalized and secure experience.",
+       description: "We greatly prioritize privacy preferences and we make sure users have control the visibility of their health information. Users can choose between public, private, or shared only with their trainer, ensuring a personalized and secure experience.",
        icon: ShieldCheck
     },
     {
        title: "User-Centric Feedback System",
-       description: "The planned inclusion of a user feedback and improvement section demonstrates a commitment to continuous enhancement. Collecting user input allows for iterative improvements based on the evolving needs and preferences of the iHealth community.",
+       description: "We're commited to continous improvement to enhanced user experience. We value each user's feedback to ensure users feel comfortable and confident in using our app.",
        icon: MessageSquareReply
     },
 ]

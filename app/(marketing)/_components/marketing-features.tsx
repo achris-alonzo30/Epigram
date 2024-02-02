@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import { FeatureLinks } from "@/lib/map-links";
+import { InfiniteMovingCards } from "@/components/animated-ui/infinite-moving-cards";
 
 const fadeInAnimationVariants = {
   initial: {
@@ -39,7 +39,7 @@ export const MarketingFeatures = () => {
         What Awaits You?
       </motion.h1>
       <motion.p
-        className="mt-2 text-center text-lg text-slate-600 dark:text-slate-400"
+        className="mt-2 text-center text-lg text-slate-600 dark:text-gray-500"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
@@ -53,25 +53,8 @@ export const MarketingFeatures = () => {
         Explore the features that redefine how you approach health and
         well-being.
       </motion.p>
-      <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-16 md:grid-cols-2 xl:grid-cols-3">
-        {FeatureLinks.map((feature) => (
-          <motion.div
-            className="flex flex-col items-center p-6 space-y-3 text-center rounded-xl bg-gray-100 dark:bg-gray-800 transition-transform hover:-translate-x-2 hover:-translate-y-2"
-            key={feature.title}
-            variants={fadeInAnimationVariants}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <feature.icon className="w-6 h-6 text-[#7600FF]" />
-            <h1 className="text-xl font-semibold text-slate-700 capitalize dark:text-slate-100">
-              {feature.title}
-            </h1>
-            <p className="text-slate-600 dark:text-slate-400">
-              {feature.description}
-            </p>
-          </motion.div>
-        ))}
+      <div className="w-full">
+        <InfiniteMovingCards direction="right" speed="slow" />
       </div>
     </div>
   );

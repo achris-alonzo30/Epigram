@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
-import { ModeType } from "@prisma/client";
+import { Mode } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -35,8 +35,8 @@ const formSchema = z.object({
   username: z.string({ required_error: "Username is required." }).min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  imgProfile: z.string({ required_error: "Image URL is required." }).min(1),
-  mode: z.nativeEnum(ModeType),
+  profileImageUrl: z.string({ required_error: "Image URL is required." }).min(1),
+  mode: z.nativeEnum(Mode),
 });
 
 
@@ -48,8 +48,8 @@ export const CustomizeProfileForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: user?.firstName || "",
-      imgProfile: user?.imageUrl || "",
-      mode: ModeType.FUNMODE,
+      profileImageUrl: user?.imageUrl || "",
+      mode: Mode.FUN,
     },
   });
 
@@ -57,16 +57,22 @@ export const CustomizeProfileForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/user", values);
+      await axios.post("/api/fun-mode/create-profile", values);
       form.reset();
       router.refresh();
       toast.success("Profile updated");
+      console.log(values)
     } catch (error) {
       toast.error("Something went wrong");
+    } finally {
+      // Redirect the user base on the mode that they choosed in here
+      const routeMode = `${values.mode.toLowerCase()}-mode`;
+      router.push(`/mode/${routeMode}/${user?.id}`);
     }
   }
+
   return (
-    <section className="h-full max-w-3xl flex flex-col items-center justify-center mx-auto mt-24 ">
+    <section className="h-full max-w-3xl flex flex-col items-center justify-center mx-auto mt-20 ">
       <div className="flex flex-col space-y-2 items-center justify-center text-center ">
         <div className="lg:text-6xl md:text-4xl text-2xl font-extrabold dark:text-slate-200 text-slate-800">
           <h1>Welcome <span className="capitalize inline-flex animate-text-gradient bg-gradient-to-r from-[#FFA0A0] via-[#7600FF] to-[#c7d2fe] bg-[240%_auto] bg-clip-text lg:text-6xl md:text-4xl text-2xl font-extrabold text-transparent">{user?.firstName}</span>!</h1>
@@ -76,12 +82,31 @@ export const CustomizeProfileForm = () => {
       <Separator className="w-2/3 my-4" />
       <Form  {...form} >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-2/3 px-3">
+
+        <FormField
+            control={form.control}
+            name="profileImageUrl"
+            render={({ field }) => (
+              <FormItem className="space-y-3 flex flex-col items-center">
+                <FormLabel>Add Profile Image</FormLabel>
+                <FormControl className="">
+                  <FileUpload
+                    endpoint="profileImageUrl"
+                    onChange={field.onChange}
+                    value={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel>Change Username</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
@@ -95,23 +120,7 @@ export const CustomizeProfileForm = () => {
           />
           <FormField
             control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Add Profile Image</FormLabel>
-                <FormControl>
-                  <FileUpload
-                    endpoint="imgProfile"
-                    onChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="username"
+            name="mode"
             render={({ field }) => (
               <FormItem className="space-y-3">
                 <FormLabel>Choose Mode</FormLabel>
@@ -122,8 +131,8 @@ export const CustomizeProfileForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="FUNMODE">Fun Mode</SelectItem>
-                    <SelectItem value="WORKMODE">Work Mode</SelectItem>
+                    <SelectItem value="FUN">Fun Mode</SelectItem>
+                    <SelectItem value="WORK">Work Mode</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>
@@ -134,7 +143,7 @@ export const CustomizeProfileForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-full text-center w-full transform hover:-translate-y-1 transition duration-400">Submit</Button>
+          <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-full text-center w-full transform hover:-translate-y-1 transition duration-400">Submit</Button>
         </form>
       </Form>
     </section>

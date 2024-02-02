@@ -10,13 +10,13 @@ const handleAuth = () => {
 };
 
 export const ourFileRouter = {
-  imgProfile: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
+  profileImageUrl: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
-  imgPost: f(["image", "video"])
+  postContent: f(["image", "video"])
   .middleware(() => handleAuth())
   .onUploadComplete(() => {}),
-  vidPost: f({ video: { maxFileCount: 1, maxFileSize: "512GB" } })
+  postVideo: f({ video: { maxFileCount: 1, maxFileSize: "512GB" } })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {})
 } satisfies FileRouter;
