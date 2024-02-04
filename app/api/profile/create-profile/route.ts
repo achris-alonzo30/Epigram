@@ -7,7 +7,7 @@ export async function POST(
 ) {
     try {
         const { userId } = auth();
-        const { username, profileImageUrl, mode } = await req.json();
+        const { username, profileImageUrl } = await req.json();
 
         if (!userId) return new NextResponse("Unauthorized", { status: 401 })
 
@@ -17,17 +17,9 @@ export async function POST(
                 username,
                 profileImageUrl
             }
-        })
-
-        const userSettings = await db.userSetting.create({
-            data: {
-                userId: createProfile.id,
-                mode
-            }
-        })
+        });
         
-        return NextResponse.json({createProfile, userSettings}, { status: 201} )
-
+        return NextResponse.json(createProfile)
     } catch (error) {
         console.log("[NEW_USER: CUSTOMIZATION]", error)
         return new NextResponse("Internal Server Error", { status: 500 })

@@ -8,60 +8,56 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
 }
 
-enum Mode {
-  FUN
-  WORK
-}
-
 model User {
-  id String @id @default(cuid())
-  userId String @unique
-  username String @unique
-  profileImageUrl String?
-  bio String? 
+  id                 String  @id @default(cuid())
+  userId             String  @unique
+  username           String  @unique
+  profileImageUrl    String?
+  bio                String?
   backgroundImageUrl String?
 
-  posts Post[] @relation("UserPost")
+  posts      Post[] @relation("UserPost")
   savedPosts Post[] @relation("SavedPosts")
   likedPosts Post[] @relation("LikedPosts")
 
   userSettings UserSetting[] @relation("UserSettings")
 
+  userGroupBelong Group[] @relation("UserGroupBelongTo")
+
+  userMemberRole Member[] @relation("UserMemberRole")
+
   commenter Comment[] @relation("Commenter")
 
-  following Follow[] @relation("Following")
+  following  Follow[] @relation("Following")
   followedBy Follow[] @relation("FollowedBy")
 
-  blocking Block[] @relation("Blocking")
+  blocking  Block[] @relation("Blocking")
   blockedBy Block[] @relation("BlockedBy")
 
-
-  userCloseFriends CloseFriends[] @relation("UserCloseFriends")
+  userCloseFriends        CloseFriends[] @relation("UserCloseFriends")
   closeFriendCloseFriends CloseFriends[] @relation("CloseFriendCloseFriends")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
 }
 
 model Post {
-  id String @id @default(cuid())
-  caption String 
-  tags String[] 
+  id           String   @id @default(cuid())
+  caption      String
+  tags         String[]
   postImageUrl String?
-  postVideoUrl String?
-  location String?
-  views Int
+  location     String?
+  views        Int?
 
   likedBy User[] @relation("SavedPosts")
   savedBy User[] @relation("LikedPosts")
 
   creatorId String
-  creator User @relation("UserPost", fields: [creatorId], references: [id], onDelete: Cascade)
+  creator   User   @relation("UserPost", fields: [creatorId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,15 +66,55 @@ model Post {
 }
 
 model UserSetting {
-  id String @id @default(cuid())
+  id       String   @id @default(cuid())
   isPublic Boolean?
-  mode Mode?
 
-  userId String
-  userSetting User @relation("UserSettings", fields: [userId], references: [id])
+  userId      String
+  userSetting User   @relation("UserSettings", fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id                 String  @id @default(cuid())
+  name               String
+  groupImageUrl      String
+  backgroundImageUrl String?
+  inviteCode         String  @unique
+
+  userId String
+  user   User   @relation("UserGroupBelongTo", fields: [userId], references: [id], onDelete: Cascade)
+
+  groupMembers Member[] @relation("GroupMembers")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  MEMBER
+}
+
+model Member {
+  id   String     @id @default(cuid())
+  role MemberRole @default(MEMBER)
+
+  userId String
+  user   User   @relation("UserMemberRole", fields: [userId], references: [id], onDelete: Cascade)
+
+  groupId String
+  group   Group  @relation("GroupMembers", fields: [groupId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([groupId])
 }
 
 model Follow {
@@ -100,10 +136,10 @@ model Follow {
 model CloseFriends {
   id String @id @default(cuid())
 
-  userCloseFriendId String
+  userCloseFriendId         String
   closeFriendCloseFriendsId String
-  userCloseFriend User @relation("UserCloseFriends", fields: [userCloseFriendId], references: [id], onDelete: Cascade)
-  closeFriendCloseFriends User @relation("CloseFriendCloseFriends", fields: [closeFriendCloseFriendsId], references: [id], onDelete: Cascade)
+  userCloseFriend           User   @relation("UserCloseFriends", fields: [userCloseFriendId], references: [id], onDelete: Cascade)
+  closeFriendCloseFriends   User   @relation("CloseFriendCloseFriends", fields: [closeFriendCloseFriendsId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
@@ -125,18 +161,14 @@ model Block {
 }
 
 model Comment {
-  id String @id @default(cuid())
+  id      String @id @default(cuid())
   comment String @db.Text
 
   commenterId String
-  commenter User @relation("Commenter", fields: [commenterId], references: [id], onDelete: Cascade)
-
+  commenter   User   @relation("Commenter", fields: [commenterId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([commenterId])
 }
-
-
-

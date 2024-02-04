@@ -1,30 +1,20 @@
-import { db } from "@/lib/db";
-import { currentUser } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
+import { auth } from "@clerk/nextjs";
+import { getCurrentUser } from "@/actions/get-user-details";
+import { CreateProfileForm } from "./_components/create-profile-form"
 
-import { currentProfile } from "@/lib/current-profile";
-import { CustomizeProfileForm } from "./_components/customize-form"
+const CreateProfilePage = async () => {
+    const { userId } = auth();
+    // Check first if the user is existed in the database
+    const existingUser = await getCurrentUser();
 
-const CustomizeProfilePage = async () => {
-    // Check if the user is existed in the database
-    const existingUser = await currentProfile();
-    const userMode = await db.userSetting.findFirst({
-        where: {
-            userId: existingUser?.id
-        },
-        select: {
-            mode: true
-        }
-    })
     // Redirect them to their account feed
-    const routeMode = `${userMode?.mode!.toLowerCase()}-mode`;    
-    if (existingUser) return redirect(`/mode/${routeMode}/${existingUser?.id}`)
-
+    if (existingUser?.userId === userId) return redirect(`/profile/${existingUser?.id}`);
     return (
         <div className="h-full">
-            <CustomizeProfileForm />
+            <CreateProfileForm existingUser={existingUser} />
         </div>
     )
 }
 
-export default CustomizeProfilePage
+export default CreateProfilePage

@@ -2,15 +2,13 @@ import {
     Activity,
     Blend,
     Bookmark, 
-    Calendar, 
-    Gift, 
     HeartHandshake, 
     Home, 
     MessageSquareReply, 
     Plus, 
-    Search, 
     Settings, 
     ShieldCheck, 
+    ThumbsUp, 
     UserRound 
 } from "lucide-react";
 
@@ -44,28 +42,28 @@ export const SidebarLinks = [
 
 export const FeatureLinks = [
     {
-        title: "Dual Mode Engagement",
-        description: "We provide a unique dual mode engagement, offering both Fun Mode for social interactions and Work Mode for professional client-trainer relationships.",
+        title: "Promoting Longevity and Vitality",
+        description: "We are dedicated to helping you live a longer, healthier life. Studies show that making healthy choices can help you live longer and improve your mental well-being. We want to support you in adding quality years to your life, promoting both longevity and freedom from certain health issues.",
         icon: Blend
     },
     {
-        title: "Comprehensive Health Data Tracking",
-        description: "The Work Mode's focus on health data tracking and with centralized dashboards, enabling users to input and monitor essential health metrics.",
+        title: "Optimizing Mental Clarity and Focus",
+        description: "We want to promote the impact of healthy and active lifestyle on nutrition and cognitive function on our platform. We believe that healthy choices can help us achieve better mental clarity and focus, promoting longer and happier lives.",
         icon: Activity
     },
     {
-       title: "Efficient Calendar Functionality",
-       description: "Work Mode is equipped with a user-friendly calendar where users can schedule meetings and appointments. Additionally, timely notifications and email alerts ensure smooth communication.",
-       icon: Calendar
+       title: "Building Confidence Through Fitness",
+       description: "Our platform is designed to support users in building and maintaining a strong, fit body, fostering a positive self-image. We believe that confidence is not only a result of physical fitness but also a key element in achieving personal and professional success.",
+       icon: ThumbsUp
     },
     {
-       title: "Empowering Supportive Community",
-       description: "We ensure a welcoming and inclusive environment for users. This a place for users to encourage and challenge each other, earn rewards and increase user engagement.",
+       title: "Culture of Support and Assistance",
+       description: "We understand the importance of being there for each other on the journey to a healthier lifestyle. We want to build a community where individuals commited to healthy living come together to support one another",
        icon: HeartHandshake
     },
     {
-       title: "Privacy Preferences",
-       description: "We greatly prioritize privacy preferences and we make sure users have control the visibility of their health information. Users can choose between public, private, or shared only with their trainer, ensuring a personalized and secure experience.",
+       title: "Empowering Users to Be Helpful and Strong",
+       description: "We believe that a community of health enthusiasts plays a pivotal role in making a positive impact on the lives of those around them and we foster this behaviour.  ",
        icon: ShieldCheck
     },
     {

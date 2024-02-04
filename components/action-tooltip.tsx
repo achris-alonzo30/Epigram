@@ -17,7 +17,7 @@ export const ActionTooltip = ({ title, children }: ActionTooltipProps) => {
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
-          <p className="font-semibold text-sm capitalize">{title}</p>
+          <p className="font-medium text-sm capitalize">{title}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

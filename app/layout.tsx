@@ -2,13 +2,14 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 import { ClerkProvider } from '@clerk/nextjs'
-import { ToastProvider } from "@/components/providers/toaster-provider";
-import { ThemeProvider } from "@/components/providers/theme-provider";
 
-import { extractRouterConfig } from "uploadthing/server";
+import { ModalProvider } from "@/components/providers/modal-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ToastProvider } from "@/components/providers/toaster-provider";
+
 import { ourFileRouter } from "./api/uploadthing/core";
+import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
-import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "iHealth",
@@ -35,6 +36,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ToastProvider />
+          <ModalProvider />
           {children}
         </ThemeProvider>
       </body>

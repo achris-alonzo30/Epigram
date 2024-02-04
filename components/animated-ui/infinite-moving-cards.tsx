@@ -2,7 +2,7 @@
 
 import { FeatureLinks } from "@/lib/map-links";
 import { cn } from "@/lib/utils";
-import { useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 
 export const InfiniteMovingCards = ({
     direction = "left",
@@ -94,14 +94,16 @@ export const InfiniteMovingCards = ({
                                 aria-hidden="true"
                                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
                             ></div>
-                            <div className="flex gap-x-2 items-center"><feature.icon className="w-6 h-6 text-center text-[#7600FF]" />
-                            <span className=" text-base leading-[1.6] text-slate-500 dark:text-slate-200 font-medium">
-                                {feature.title}
-                            </span></div>
-                            
+                            <div className="flex gap-x-2 items-center">
+                                <feature.icon className="w-8 h-8 text-center text-[#7600FF]" />
+                                <span className="text-base md:text-lg leading-2 text-slate-800 dark:text-zinc-100 font-medium flex-1">
+                                    {feature.title}
+                                </span>
+                            </div>
+
                             <div className="relative z-20 mt-6 flex flex-row items-center">
                                 <span className="flex flex-col gap-1">
-                                    <span className=" relative z-20 text-sm leading-[1.6] text-muted-foreground font-normal">
+                                    <span className=" relative z-20 text-sm leading-[1.6] text-zinc-600 dark:text-zinc-400 font-normal text-justify tracking-tighter">
                                         {feature.description}
                                     </span>
                                 </span>

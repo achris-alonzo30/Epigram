@@ -8,14 +8,14 @@ import { MarketingCTALinks } from "@/lib/map-links";
 
 export const MarketingCTA = () => {
   return (
-    <div className="container grid grid-cols-1 gap-8 px-6 lg:py-36 md:py-24 sm:py-12 mx-auto lg:grid-cols-2">
+    <div className="container grid grid-cols-1 gap-8 px-6 lg:py-36 md:py-24 sm:py-12 mx-auto lg:grid-cols-2 mb-12">
       {MarketingCTALinks.map((link) => (
         <div
           className="flex flex-col items-center max-w-lg mx-auto text-center space-y-2"
           key={link.title}
         >
           <motion.h2
-            className="text-3xl font-semibold tracking-tight text-slate-600 dark:text-slate-100 "
+            className="text-xl md:text-3xl font-semibold tracking-tight text-zinc-800 dark:text-gray-100 "
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
@@ -29,7 +29,7 @@ export const MarketingCTA = () => {
             {link.title}
           </motion.h2>
           <motion.p
-            className="mt-3 text-muted-foreground"
+            className="mt-3 text-zinc-600 dark:text-zinc-400 text-base md:text-lg "
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{

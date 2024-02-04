@@ -1,18 +1,15 @@
 "use client";
-
-import Link from "next/link";
 import { motion } from "framer-motion";
-
 import { TextGradient } from "@/components/animated-ui/text-gradient";
 import { ButtonRotatingBackgroundGradient } from "@/components/animated-ui/button-rotating-background-gradient";
 
 export const MarketingHeros = () => {
 
   return (
-    <div className="relative items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
-      <div className="max-w-3xl mx-auto text-center">
-        <motion.p
-          className="text-4xl font-extrabold tracking-tight md:text-6xl"
+    <div className="items-center w-full px-5 py-12 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
+      <div className="max-w-3xl mx-auto text-center ">
+        <motion.h1
+          className="font-extrabold text-6xl lg:text-7xl mb-1 text-zinc-800 dark:text-zinc-100"
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
@@ -23,14 +20,16 @@ export const MarketingHeros = () => {
           }}
           viewport={{ once: true }}
         >
-          Unlock Your Best Self <br />
+          Thrive Longer, <br />
+          Live Stronger  <br />
           with{" "}
-          <TextGradient fontSize={["md:text-6xl text-4xl"]} fontStyle="font-extrabold">
-            iHealth
+          <TextGradient fontSize={["text-6xl lg:text-7xl"]} fontStyle="font-extrabold">
+            Epigram
           </TextGradient>
-        </motion.p>
+
+        </motion.h1>
         <motion.p
-          className="max-w-xl mx-auto mt-8 text-base lg:text-lg dark:text-gray-500 text-slate-600"
+          className="max-w-xl mx-auto mt-8 text-xl lg:text-2xl font-medium text-zinc-600 dark:text-zinc-300"
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
@@ -41,11 +40,11 @@ export const MarketingHeros = () => {
           }}
           viewport={{ once: true }}
         >
-          Seamlessly Blend Fun and Work Modes for Ultimate Health Management
+          Unlock Your Best Self
         </motion.p>
       </div>
       <motion.div
-        className="flex flex-col justify-center gap-3 mt-6 sm:flex-row"
+        className="flex flex-col justify-center gap-3 mt-6 sm:flex-row mx-auto w-40"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
@@ -55,10 +54,12 @@ export const MarketingHeros = () => {
           type: "spring",
         }}
         viewport={{ once: true }}
-      >
-        <ButtonRotatingBackgroundGradient>
-            <Link href="/create-profile">Get Started Now</Link>
-        </ButtonRotatingBackgroundGradient>
+      > 
+        
+          <ButtonRotatingBackgroundGradient route="/create-profile">
+            Start Here
+          </ButtonRotatingBackgroundGradient>
+        
       </motion.div>
     </div>
   );

@@ -23,9 +23,9 @@ const fadeInAnimationVariants = {
 
 export const MarketingFeatures = () => {
   return (
-    <div className="container px-6 md:py-24 sm:py-12 mx-auto">
+    <div className="container px-6 md:py-24 py-12 mx-auto">
       <motion.h1
-        className="text-3xl font-semibold text-center text-slate-800 capitalize lg:text-4xl dark:text-white"
+        className="text-2xl md:text-4xl  font-bold text-center dark:text-zinc-100 text-zinc-800 capitalize "
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
@@ -36,10 +36,10 @@ export const MarketingFeatures = () => {
         }}
         viewport={{ once: true }}
       >
-        What Awaits You?
+        Strength Empowers All
       </motion.h1>
       <motion.p
-        className="mt-2 text-center text-lg text-slate-600 dark:text-gray-500"
+        className="mt-2 text-center text-base md:text-lg text-zinc-600 dark:text-zinc-400"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
@@ -50,8 +50,7 @@ export const MarketingFeatures = () => {
         }}
         viewport={{ once: true }}
       >
-        Explore the features that redefine how you approach health and
-        well-being.
+        Discover how our core values empower you to be a source of strength for yourself and others.
       </motion.p>
       <div className="w-full">
         <InfiniteMovingCards direction="right" speed="slow" />
