@@ -2,17 +2,12 @@ import { create } from "zustand"
 import { Group } from "@prisma/client";
 
 export type ModalType = 
-    | "members"
-    | "invite"
-    | "createGroup"
-    | "editGroup"
-    | "leaveGroup"
-    | "deleteGroup"
-    | "deleteMember"
-    | "deletePost"
     | "createPost"
-    | "editPost"
+    | "editProfile"
+    | "setSettings"
     | "sendFeedback"
+    | "openNotifications"
+    | "activityLogs"
 
 type ModalData = {
     group?: Group;

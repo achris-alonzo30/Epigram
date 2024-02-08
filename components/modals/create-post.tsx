@@ -2,22 +2,12 @@
 
 import * as z from "zod";
 import axios from "axios";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/hooks/use-modals";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Loader2 } from "lucide-react";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -25,17 +15,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUpload } from "@/components/file-upload";
+import { LoadingSpinner } from "@/components/loading-spinner";
 
 const formSchema = z.object({
   caption: z.string().min(1, {
     message: "Caption is required",
   }),
-  postContent: z.string().min(1, {
+  postImageUrl: z.string().min(1, {
     message: "Content is required",
   }),
   tags: z.string().min(3, {
@@ -43,17 +44,15 @@ const formSchema = z.object({
   }),
 });
 
-export function CreatePost() {
-  const { isOpen, onClose, type } = useModal();
-
+export function CreatePost({ children }: { children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const isModalOpen = isOpen && type === "createPost";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       caption: "",
-      postContent: "",
+      postImageUrl: "",
       tags: "",
     }
   })
@@ -63,101 +62,100 @@ export function CreatePost() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       // TODO: Axios API Request
-      await axios.post(`/api/fun-mode/create-post`, values);
+      await axios.post(`/api/posts/create-post`, values);
 
       toast.success("Post created");
       form.reset();
       router.refresh();
-      onClose();
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
-    } 
+    } finally {
+      setIsOpen(false)
+    }
   }
 
   const handleClose = () => {
+    setIsOpen(false);
     form.reset();
-    onClose();
   }
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[425px] px-2">
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogTrigger asChild>
+        {children}
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[500px] px-2">
         <DialogHeader>
-          <DialogTitle className="text-zinc-800 dark:text-zinc-100">Create Post</DialogTitle>
+          <DialogTitle className="text-zinc-800 dark:text-zinc-100 text-lg font-medium">Create Post</DialogTitle>
           <DialogDescription className="text-zinc-600 dark:text-zinc-400">
-            To create a post, make changes here and click save when done.
+            Share a new post with a photo, tags, and caption.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-6 px-4">
-              <div className="flex items-center justify-center text-center">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8 px-2">
+            <div>
+              <div className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="postContent"
+                  name="postImageUrl"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col items-center justify-center text-center">
+                      <FormLabel>Image Post</FormLabel>
                       <FormControl>
                         <FileUpload
-                          endpoint="postContent"
+                          endpoint="postImageUrl"
                           value={field.value}
                           onChange={field.onChange}
                         />
                       </FormControl>
+                      <FormDescription>16:9 Aspect Ratio Recommended</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="tags"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel >Tags</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Separate tags with a comma"
+                          disabled={isLoading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="caption"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Caption</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Write a caption"
+                          disabled={isLoading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-              <FormField
-                control={form.control}
-                name="tags"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel >Tags</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Separate tags with a comma"
-                        disabled={isLoading}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="caption"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Caption</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Write a caption"
-                        disabled={isLoading}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
             </div>
             <DialogFooter className="flex justify-end items-center gap-x-2">
               <Button variant="ghost" disabled={isLoading} onClick={() => form.reset()}>
                 Reset
               </Button>
-              {isLoading ? (
-                <Button type="submit" disabled={isLoading}>
-                  <Loader2 className="h-4 w-4 animate-sping text-[#7600FF]" />
-                </Button>
-              ) : (
-                <Button type="submit" disabled={isLoading}>
-                  Create
-                </Button>
-              )}
-
+              <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
+                {isLoading ? <LoadingSpinner /> : "Submit"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

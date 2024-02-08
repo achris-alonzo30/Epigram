@@ -1,23 +1,29 @@
 import { Navbar } from "@/components/navigations/navbar";
 import { Leftbar } from "@/components/navigations/leftbar";
 import { Rightbar } from "@/components/navigations/rightbar";
-import { getCurrentUser } from "@/actions/get-user-details";
+import { getCurrentUser } from "@/actions/get-current-user";
 
-const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
+type ProfileLayoutProps = {
+    children: React.ReactNode;
+    params: { userId: string };
+}
+
+const ProfileLayout = async ({ children, params }: ProfileLayoutProps) => {
     const user = await getCurrentUser();
 
     return (
         <div className="h-full">
             <div className="h-[60px] md:pl-56 fixed inset-y-0 w-full z-50">
-                <Navbar username={user?.username!} profileImageUrl={user?.profileImageUrl!}  />
+                <Navbar username={user?.username!} profileImageUrl={user?.profileImageUrl!} userId={user?.id!}  />
             </div>
             <div className="hidden md:flex flex-col h-full w-56 fixed inset-y-0 z-50">
-                <Leftbar />
+                <Leftbar userId={user?.id!} />
             </div>
-            <div className="absolute right-0 h-full w-60 top-16 bottom-0 lg:block hidden">
+            <div className="absolute right-0 h-full lg:w-60 top-16 bottom-0 lg:block hidden">
                 <Rightbar />
             </div>
-            <main className="md:pl-56 pt-[80px] h-full">
+            {/* You can add flex instead */}
+            <main className="md:pl-64 lg:pr-64 pt-[80px] h-full">
               {children}  
             </main>
         </div>

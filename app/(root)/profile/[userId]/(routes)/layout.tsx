@@ -1,4 +1,4 @@
-const UserProfileLayout = ({ children }: { children: React.ReactNode }) => {
+const UserLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
             {children}
@@ -6,4 +6,4 @@ const UserProfileLayout = ({ children }: { children: React.ReactNode }) => {
     )
 }
 
-export default UserProfileLayout;
+export default UserLayout;

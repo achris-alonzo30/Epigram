@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/actions/get-user-details";
+import { getCurrentUser } from "@/actions/get-current-user";
 
 export async function POST(req: Request) {
   try {
@@ -10,15 +10,16 @@ export async function POST(req: Request) {
     if (!user) return new NextResponse("Unauthorized", { status: 401 });
 
     // Split the tags string into an array
-    const tagsArray = tags.split(",").map((tag: string) => tag.trim());
+    // const tagsArray = tags.split(",").map((tag: string) => tag.trim());
 
     const userPost = await db.post.create({
       data: {
         creatorId: user.id,
         caption,
-        tags: tagsArray,
+        tags,
         postImageUrl: postContent,
         views: 0,
+        isPublished: true,
       },
     });
 

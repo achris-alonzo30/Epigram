@@ -44,7 +44,7 @@ export const MarketingHeros = () => {
         </motion.p>
       </div>
       <motion.div
-        className="flex flex-col justify-center gap-3 mt-6 sm:flex-row mx-auto w-40"
+        className="flex flex-col justify-center gap-3 mt-6 sm:flex-row mx-auto w-full"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{

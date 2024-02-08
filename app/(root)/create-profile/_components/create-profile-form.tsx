@@ -3,7 +3,6 @@
 import * as z from "zod";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { User } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";

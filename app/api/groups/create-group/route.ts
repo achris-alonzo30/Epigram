@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/actions/get-user-details";
+import { getCurrentUser } from "@/actions/get-current-user";
 import { MemberRole } from "@prisma/client";
 
 export async function POST(req: Request) {

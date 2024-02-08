@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { auth } from "@clerk/nextjs";
-import { getCurrentUser } from "@/actions/get-user-details";
+import { getCurrentUser } from "@/actions/get-current-user";
 import { CreateProfileForm } from "./_components/create-profile-form"
 
 const CreateProfilePage = async () => {
@@ -12,7 +12,7 @@ const CreateProfilePage = async () => {
     if (existingUser?.userId === userId) return redirect(`/profile/${existingUser?.id}`);
     return (
         <div className="h-full">
-            <CreateProfileForm existingUser={existingUser} />
+            <CreateProfileForm  />
         </div>
     )
 }

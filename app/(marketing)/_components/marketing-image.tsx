@@ -15,7 +15,7 @@ export const MarketingImage = () => {
   const opacity = useTransform (scrollYProgress, [0, 1], [0.5, 1]); 
 
   return (
-    <motion.div className="relative items-center w-full py-8 pb-12 mx-auto max-w-7xl" ref={ref} style={{ scale, opacity}}>
+    <motion.div className="relative items-center w-full py-8 pb-12 mx-auto max-w-7xl shadow-xl" ref={ref} style={{ scale, opacity}}>
       <Image
         src="/wireframe.png"
         alt="photo"
