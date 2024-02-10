@@ -1,24 +1,14 @@
-
-import { db } from "@/lib/db";
-
-import { UserProfileBanner } from "./_components/user-profile-banner";
-import { getCurrentUser } from "@/actions/get-current-user";
+import { getLoginUserPosts } from "@/actions/get-login-user-posts";
 import { UserProfilePosts } from "./_components/user-profile-posts";
+import { UserProfileBanner } from "./_components/user-profile-banner";
 
 const UserProfilePage = async ({ params }: { params: { userId: string } }) => {
-    const user = await getCurrentUser();
-
-    const posts = await db.post.findMany({
-        where: { 
-            creatorId: user?.id,
-            isPublished: true,
-        },
-    });
+    const user = await getLoginUserPosts(params.userId);
 
     return (
         <div className="mt-4">
             <UserProfileBanner user={user!} />
-            <UserProfilePosts posts={posts!}  />
+            <UserProfilePosts posts={user?.posts!} />
         </div>
     )
 }

@@ -34,7 +34,7 @@ export const Navbar = ({profileImageUrl, username, userId}: NavbarProps) => {
                 <ThemeToggle />
                 <DropdownMenu modal={false}>
                     <DropdownMenuTrigger>
-                        <Image src={profileImageUrl!} alt="profile" width={35} height={35} className="rounded-full" />
+                        <Image src={profileImageUrl!} alt="profile" width={35} height={35} className="rounded-full aspect-square object-cover border-2 border-zinc-500 dark:border-zinc-200 hover:border-zinc-200 dark:hover:border-zinc-500 transform hover:-translate-y-1 transition duration-400 " />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuLabel className="capitalize text-[#7600FF] font-bold line-clamp-1">{username}</DropdownMenuLabel>

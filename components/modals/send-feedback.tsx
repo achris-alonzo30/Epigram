@@ -25,10 +25,13 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
+    DialogFooter,
     DialogDescription,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { LoadingSpinner } from "@/components/loading-spinner";
 
 const formSchema = z.object({
     fullName: z.string().min(1, {
@@ -76,7 +79,7 @@ export const SendFeedback = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={handleClose}>
+        <Dialog onOpenChange={handleClose}>
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
@@ -140,7 +143,7 @@ export const SendFeedback = ({ children }: { children: React.ReactNode }) => {
                                         <FormItem>
                                             <FormLabel>Message</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Enter feedback or concerns..." {...field} />
+                                                <Textarea placeholder="Enter feedback or concerns..." {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -148,6 +151,14 @@ export const SendFeedback = ({ children }: { children: React.ReactNode }) => {
                                 />
                             </div>
                         </div>
+                        <DialogFooter className="flex justify-end items-center gap-x-2">
+                            <Button variant="ghost" disabled={isLoading} onClick={() => form.reset()}>
+                                Reset
+                            </Button>
+                            <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
+                                {isLoading ? <LoadingSpinner /> : "Submit"}
+                            </Button>
+                        </DialogFooter>
                     </form>
                 </Form>
             </DialogContent>

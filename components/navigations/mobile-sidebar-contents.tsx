@@ -17,7 +17,7 @@ export const MobileSidebarContents = ({ userId }: MobileSidebarContentsProps) =>
       <div className="flex flex-col justify-between flex-1 mt-8">
         <LeftbarRoutes userId={userId!} />
         <SendFeedback>
-          <ButtonRotatingBackgroundGradient route="/" >
+          <ButtonRotatingBackgroundGradient isButton >
             Send Feedback
           </ButtonRotatingBackgroundGradient>
         </SendFeedback>

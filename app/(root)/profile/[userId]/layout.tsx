@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/navigations/navbar";
 import { Leftbar } from "@/components/navigations/leftbar";
 import { Rightbar } from "@/components/navigations/rightbar";
-import { getCurrentUser } from "@/actions/get-current-user";
+import { getLoginUser } from "@/actions/get-login-user";
 
 type ProfileLayoutProps = {
     children: React.ReactNode;
@@ -9,7 +9,9 @@ type ProfileLayoutProps = {
 }
 
 const ProfileLayout = async ({ children, params }: ProfileLayoutProps) => {
-    const user = await getCurrentUser();
+    const user = await getLoginUser();
+
+    // TODO: Add a skeleton loader
 
     return (
         <div className="h-full">

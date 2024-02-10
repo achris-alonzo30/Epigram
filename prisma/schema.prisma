@@ -28,7 +28,7 @@ model User {
   whoSavedIt Save[]    @relation("WhoSavedIt")
 
   following  Follow[] @relation("Following")
-  followers Follow[] @relation("FollowedBy")
+  followers Follow[] @relation("Followers")
 
   blocking  Block[] @relation("Blocking")
   blockedBy Block[] @relation("BlockedBy")
@@ -44,7 +44,6 @@ model Post {
   postImageUrl String?
   location     String?
   views        Int?
-  isPublished  Boolean @default(false)
 
   creatorId String
   creator   User   @relation("UserPost", fields: [creatorId], references: [id], onDelete: Cascade)
@@ -72,8 +71,8 @@ model Follow {
   followerId  String
   followingId String
 
-  follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
-  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+  follower  User @relation(name: "Followers", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "Following", fields: [followingId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
@@ -116,6 +115,7 @@ model Comment {
 
 model Like {
   id        String   @id @default(cuid())
+  isLiked   Boolean  @default(false)
   createdAt DateTime @default(now())
 
   userId String
@@ -131,6 +131,7 @@ model Like {
 
 model Save {
   id        String   @id @default(cuid())
+  isSaved   Boolean @default(false)
   createdAt DateTime @default(now())
 
   userId String

@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SetSettings } from "@/components/modals/set-settings";
-import { ViewActivityLogs } from "@/components/modals/view-activity-logs";
 import { ViewNotifiactions } from "@/components/modals/view-notifications";
 
 
@@ -39,7 +38,6 @@ export const LeftbarRoutes = ({ userId }: LeftbarRoutesProps) => {
             <span className="mx-4 font-medium">Saved Posts</span>
           </Link>
           <ViewNotifiactions />
-          <ViewActivityLogs />
           <SetSettings />
         </nav>
     )

@@ -1,11 +1,11 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/actions/get-current-user";
+import { getLoginUser } from "@/actions/get-login-user";
 
 export async function POST(req: Request) {
   try {
-    const { caption, postContent, tags } = await req.json();
-    const user = await getCurrentUser();
+    const { caption, postImageUrl, tags } = await req.json();
+    const user = await getLoginUser();
 
     if (!user) return new NextResponse("Unauthorized", { status: 401 });
 
@@ -17,9 +17,8 @@ export async function POST(req: Request) {
         creatorId: user.id,
         caption,
         tags,
-        postImageUrl: postContent,
+        postImageUrl,
         views: 0,
-        isPublished: true,
       },
     });
 

@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUpload } from "@/components/file-upload";
 import { LoadingSpinner } from "@/components/loading-spinner";
+import { User, Post } from "@prisma/client";
 
 const formSchema = z.object({
   caption: z.string().min(1, {
@@ -43,27 +44,40 @@ const formSchema = z.object({
   }),
 });
 
-export function CreatePost({ children }: { children: React.ReactNode }) {
+type EditPostProps = {
+  post: Post;
+  children: React.ReactNode;
+}
+
+export function EditPost({ post, children }: EditPostProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      caption: "",
-      postImageUrl: "",
-      tags: "",
+      caption: post?.caption || "",
+      postImageUrl: post?.postImageUrl ||"",
+      tags: post?.tags || "",
     }
   })
+
+  useEffect(() => {
+    form.reset({
+      caption: post?.caption || "",
+      postImageUrl: post?.postImageUrl ||"",
+      tags: post?.tags || "",
+    })
+  }, [post, form])
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       // TODO: Axios API Request
-      await axios.post(`/api/posts/create-post`, values);
+      await axios.patch(`/api/posts/${post.id}/edit-post`, values);
 
-      toast.success("Post created");
+      toast.success("Post updated");
       form.reset();
       router.refresh();
     } catch (error) {
@@ -79,15 +93,15 @@ export function CreatePost({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <Dialog onOpenChange={handleClose} >
+    <Dialog onOpenChange={handleClose}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] px-2">
         <DialogHeader>
-          <DialogTitle className="text-zinc-800 dark:text-zinc-100 text-lg font-medium">Create Post</DialogTitle>
+          <DialogTitle className="text-zinc-800 dark:text-zinc-100 text-lg font-medium">Edit Post</DialogTitle>
           <DialogDescription className="text-zinc-600 dark:text-zinc-400">
-            Share a new post with a photo, tags, and caption.
+            Update your post with a fresh photo, tags, and caption.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -119,7 +133,7 @@ export function CreatePost({ children }: { children: React.ReactNode }) {
                       <FormLabel >Tags</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Separate tags with a comma"
+                          placeholder=""
                           disabled={isLoading}
                           {...field}
                         />
@@ -136,7 +150,7 @@ export function CreatePost({ children }: { children: React.ReactNode }) {
                       <FormLabel>Caption</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Write a caption"
+                          placeholder=""
                           disabled={isLoading}
                           {...field}
                         />

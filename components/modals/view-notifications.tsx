@@ -62,7 +62,7 @@ export const ViewNotifiactions = () => {
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={handleClose}>
+        <Dialog onOpenChange={handleClose}>
             <DialogTrigger asChild>
                 <button className="flex items-center px-4 py-2 mt-5 text-gray-500 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-950 dark:hover:text-gray-400 hover:text-gray-700">
                     <Bell className="w-5 h-5" />
