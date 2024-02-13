@@ -1,6 +1,6 @@
-import { Navbar } from "@/components/navigations/navbar";
-import { Leftbar } from "@/components/navigations/leftbar";
-import { Rightbar } from "@/components/navigations/rightbar";
+import { Navbar } from "@/app/(root)/profile/[userId]/_components/navbar/navbar";
+import { Leftbar } from "@/app/(root)/profile/[userId]/_components/leftbar/leftbar";
+import { Rightbar } from "@/app/(root)/profile/[userId]/_components/rightbar/rightbar";
 import { getLoginUser } from "@/actions/get-login-user";
 
 type ProfileLayoutProps = {
@@ -24,7 +24,6 @@ const ProfileLayout = async ({ children, params }: ProfileLayoutProps) => {
             <div className="absolute right-0 h-full lg:w-60 top-16 bottom-0 lg:block hidden">
                 <Rightbar />
             </div>
-            {/* You can add flex instead */}
             <main className="md:pl-64 lg:pr-64 pt-[80px] h-full">
               {children}  
             </main>

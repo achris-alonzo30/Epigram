@@ -60,7 +60,6 @@ model Post {
 
 enum STATUS {
   ACCEPTED
-  REJECTED
   PENDING
 }
 

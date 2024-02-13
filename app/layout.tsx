@@ -10,7 +10,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 
 export const metadata: Metadata = {
-  title: "iHealth",
+  title: "Epigram",
   description: "iHealth is a dynamic app offering fun social interactions and professional client-trainer relationships. Users can socialize with friends and track health data, set up calendars, and communicate privately with trainers, fostering a supportive community and efficient health management.",
   icons: {
     icon: "/logo.svg",

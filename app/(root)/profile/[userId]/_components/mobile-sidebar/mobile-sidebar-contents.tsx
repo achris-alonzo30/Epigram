@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { Logo } from "@/components/logo";
-import { LeftbarRoutes } from "./leftbar-routes";
+import { LeftbarRoutes } from "../leftbar/leftbar-routes";
 import { SendFeedback } from "@/components/modals/send-feedback";
 import { ButtonRotatingBackgroundGradient } from "@/components/animated-ui/button-rotating-background-gradient";
 

@@ -5,49 +5,91 @@ import { getLoginUser } from "@/actions/get-login-user";
 import { STATUS } from "@prisma/client";
 
 export async function POST(
-    req: Request,
-    params : { params: { followingId: string } }
+  req: Request,
+  { params }: { params: { followingId: string } }
 ) {
-    try {
-        const { followingId } = params.params;
-        const loginUser = await getLoginUser();
-        const { userId } = auth();
+  try {
+    const { followingId } = params;
+    const loginUser = await getLoginUser();
+    const { userId } = auth();
 
-        if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-        const followRequest = await db.follow.create({
-            data: {
-                followingId,
-                followerId: loginUser?.id!,
-                status: STATUS.PENDING
-            }
-        })
+    const followRequest = await db.follow.create({
+      data: {
+        followingId,
+        followerId: loginUser?.id!,
+        status: STATUS.PENDING,
+      },
+    });
 
-        return NextResponse.json({ followRequest }, { status: 200 });
-    } catch (error) {
-        console.log("[FOLLOW]", error);
-        return new NextResponse("Internal Server Error", { status: 500 });
-    }
+    return NextResponse.json({ followRequest }, { status: 200 });
+  } catch (error) {
+    console.log("[FOLLOW_REQUEST]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
 }
 
-export async function GET(
-    req: Request,
-    params : { params: { followingId: string } }
+export async function DELETE(
+  req: Request,
+  { params }: { params: { followingId: string } }
 ) {
-    try {
-        const { followingId } = params.params;
-        const loginUser = await getLoginUser();
-        const { userId } = auth();
+  try {
+    const { followingId } = params;
+    const loginUser = await getLoginUser();
+    const { userId } = auth();
 
-        if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-        const followedUsers = await db.follow.findMany({
-            where: {
-                
-            }
-        })
-    } catch (error) {
-        console.log("[GET_FOLLOW_USERS]", error);
-        return new NextResponse("Internal Server Error", { status: 500 });
-    }
+    const followRequest = await db.follow.deleteMany({
+      where: {
+        followingId,
+        followerId: loginUser?.id!,
+      },
+    });
+
+    return NextResponse.json({ followRequest }, { status: 200 });
+  } catch (error) {
+    console.log("[UNFOLLOW_REQUEST]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+}
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: { followerId: string } }
+) {
+  try {
+    const { followerId } = params;
+    const loginUser = await getLoginUser();
+    const { userId } = auth();
+
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+
+    // Get the existing follow data between the logged in user and the user being followed
+    const existingFollowRequest = await db.follow.findFirst({
+      where: {
+        followerId,
+        followingId: loginUser?.id!,
+        status: STATUS.PENDING,
+      },
+    });
+
+    if (!existingFollowRequest)
+      return new NextResponse("Not Found", { status: 404 });
+
+    const updateFollowRequest = await db.follow.update({
+      where: {
+        id: existingFollowRequest.id,
+      },
+      data: {
+        status: STATUS.ACCEPTED,
+      },
+    });
+
+    return NextResponse.json({ updateFollowRequest }, { status: 200 });
+  } catch (error) {
+    console.log("[FOLLOW_STATUS_UPDATE]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
 }

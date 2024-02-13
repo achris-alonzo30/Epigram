@@ -1,42 +1,37 @@
 import { 
-    Activity,
-    Blend,
-    Bookmark, 
+    BookOpenText,
+    GalleryVerticalEnd, 
     HeartHandshake, 
-    Home, 
+    Hourglass, 
     MessageSquareReply, 
-    Plus, 
-    Settings, 
-    ShieldCheck, 
-    ThumbsUp, 
-    UserRound 
+    PawPrint, 
 } from "lucide-react";
 
 export const FeatureLinks = [
     {
-        title: "Promoting Longevity and Vitality",
-        description: "We are dedicated to helping you live a longer, healthier life. Studies show that making healthy choices can help you live longer and improve your mental well-being. We want to support you in adding quality years to your life, promoting both longevity and freedom from certain health issues.",
-        icon: Blend
+        title: "Tailored Pet Profiles",
+        description: "Create personalized profiles for your pets, showcasing their unique traits and personality. ",
+        icon: PawPrint
     },
     {
-        title: "Optimizing Mental Clarity and Focus",
-        description: "We want to promote the impact of healthy and active lifestyle on nutrition and cognitive function on our platform. We believe that healthy choices can help us achieve better mental clarity and focus, promoting longer and happier lives.",
-        icon: Activity
+        title: "Memorable Moment Albums",
+        description: "Build themed photo albums within Epigram, organizing and highlighting the most heartwarming and memorable moments shared with your pets.",
+        icon: GalleryVerticalEnd
     },
     {
-       title: "Building Confidence Through Fitness",
-       description: "Our platform is designed to support users in building and maintaining a strong, fit body, fostering a positive self-image. We believe that confidence is not only a result of physical fitness but also a key element in achieving personal and professional success.",
-       icon: ThumbsUp
+       title: "Pet-centric Storytelling",
+       description: "Create a unique and engaging storytelling experience centered explicitly on pets.",
+       icon: BookOpenText
     },
     {
-       title: "Culture of Support and Assistance",
-       description: "We understand the importance of being there for each other on the journey to a healthier lifestyle. We want to build a community where individuals commited to healthy living come together to support one another",
+       title: "Community Support Hub",
+       description: "Develop a community support hub where pet owners can share tips, seek advice, and celebrate successes.",
        icon: HeartHandshake
     },
     {
-       title: "Empowering Users to Be Helpful and Strong",
-       description: "We believe that a community of health enthusiasts plays a pivotal role in making a positive impact on the lives of those around them and we foster this behaviour.  ",
-       icon: ShieldCheck
+       title: "Time Capsule Reminders",
+       description: "Capture timeless memories: Our Time Capsule Reminders feature prompts you to revisit and celebrate special moments in your pet's life.",
+       icon: Hourglass
     },
     {
        title: "User-Centric Feedback System",
@@ -47,13 +42,19 @@ export const FeatureLinks = [
 
 export const MarketingCTALinks = [
     {
-        title: "Fun Mode",
-        description: "Unleash the social side of health with Fun Mode, where vibrant interactions and peer encouragement turn your wellness journey into a delightful, community-driven experience.",
-        buttonTitle: "Start With Fun Mode"
+        title: "Join The Pet Love Revolution",
+        description: "Connect with a community of pet enthusiasts and share your joy on Epigram.",
     },
     {
-        title: "Work Mode",
-        description: "Elevate your fitness journey with personalized guidance and support in Work Mode, fostering a dedicated space for professional client-trainer relationships.",
-        buttonTitle: "Start With Work Mode"
+        title: "Create My Pet Profile",
+        description: "Personalize your pet's profile and share their unique tales with the world.",
+    },
+    {
+        title: "Unlock Pet Story Magic",
+        description: "Start crafting enchanting narratives about your furry friends with our Pet-centric Storytelling feature.",
+    },
+    {
+        title: "Share My Pet Story",
+        description: "Craft engaging stories about your pet using creative tools and templates.",
     }
 ]

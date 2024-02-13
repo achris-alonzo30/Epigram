@@ -49,7 +49,7 @@ export const MarketingFooter = () => {
 
         <div className="flex flex-col items-center  space-y-2 px-6 pb-4">
             <p className=" text-base text-zinc-500 dark:text-zinc-300">
-              © {year}. All Rights Reserved - Design by{" "}
+              © {year} - Design by{" "}
               <TextGradient fontSize={["text-base"]} fontStyle="font-extrabold">
                 Lonzo Chris
               </TextGradient>

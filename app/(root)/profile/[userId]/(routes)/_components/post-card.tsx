@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image";
+import { compareDesc } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Post, User } from "@prisma/client";
 
@@ -18,40 +19,47 @@ import { ToggleButtons } from "./toggle-buttons";
 import { EditPost } from "@/components/modals/edit-post";
 import { DeletePost } from "@/components/modals/delete-post";
 
+
 type PostCardProps = {
-    user: User & {
-        posts: Post[]
+    users: User & {
+        posts: Post[],
+        following: { follower: User[] & { posts: Post[]} }[],
     },
     userId: User["id"]
 }
 
-export const PostCard = ({ user, userId }: PostCardProps) => {
+export const PostCard = ({ users, userId }: PostCardProps) => {
     // TODO: User Collapsible from shadcn-ui for comments
     // TODO: User Carousel from shadcn-ui for images
-    const router = useRouter();
-    
+    // TODO: Add Infinite scroll
+    const currentUserDetails = users;
+    const currentUserFollowingDetails = users?.following.flatMap((followedUser) => followedUser.follower);
+    const currentUserPosts = users?.posts || [];
+    const currentUserFollowingPosts = users?.following.flatMap((followedUser) => followedUser.follower.posts) || [];
+    const combinedPosts = [...currentUserPosts, ...currentUserFollowingPosts];
+    const sortedPosts = combinedPosts.sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)));
     return (
         <div className="flex flex-col gap-y-8">
-            {user.posts.map((post) => {
+            {sortedPosts.map((post) => {
                 const tagsArray = post?.tags!.split(",");
                 const formattedTags = tagsArray.map(tag => `#${tag.trim()}`);
+                const userDetails = post.creatorId ===currentUserDetails?.id ? currentUserDetails : currentUserFollowingDetails?.find((user) => user.id === post.creatorId)!
                 return (
                     <Card className="w-[350px] px-2 rounded-xl shadow-lg dark:shadow-zinc-400 shadow-zinc-700" key={post.id}>
-
 
                         <CardHeader className="flex flex-row justify-between items-center px-4">
                             <div className="flex items-center gap-x-2">
                                 <Image
-                                    src={user.profileImageUrl!}
+                                    src={userDetails.profileImageUrl!}
                                     alt="profile"
                                     height="35"
                                     width="35"
                                     className="rounded-full object-cover aspect-square"
                                 />
-                                <Link href={`/profile/${user.id}/user-profile`} className="text-sm font-semibold text-zinc-500 dark:text-zinc-300 hover:dark:text-[#7600FF] hover:text-[#7600FF]">{user.username}</Link>
+                                <Link href={`/profile/${userDetails.id}/user-profile`} className="text-sm font-semibold text-zinc-500 dark:text-zinc-300 hover:dark:text-[#7600FF] hover:text-[#7600FF]">{userDetails.username}</Link>
                             </div>
                             {/* Only show this for the creator */}
-                            {userId === user.id && (
+                            {userId === userDetails.id && (
                                 <div className="flex items-center gap-x-4 ">
                                     <EditPost post={post}>
                                         <button className="-mt-1.5">

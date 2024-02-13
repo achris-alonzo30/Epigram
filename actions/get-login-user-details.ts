@@ -1,13 +1,16 @@
 import { db } from "@/lib/db"
 
-export const getLoginUserPosts = async(id: string) => {
+export const getLoginUserDetails = async(id: string) => {
     try {
+        // Not complete
         const user = await db.user.findUnique({
             where: {
                 id
             },
             include: {
-                posts: true
+                posts: true,
+                following: true,
+                followers: true
             }
         })
 

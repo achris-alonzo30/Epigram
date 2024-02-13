@@ -15,13 +15,13 @@ export const MarketingImage = () => {
   const opacity = useTransform (scrollYProgress, [0, 1], [0.5, 1]); 
 
   return (
-    <motion.div className="relative items-center w-full py-8 pb-12 mx-auto max-w-7xl shadow-xl" ref={ref} style={{ scale, opacity}}>
+    <motion.div className="relative items-center rounded-2xl w-full py-0 mx-auto max-w-7xl shadow-xl" ref={ref} style={{ scale, opacity}}>
       <Image
-        src="/wireframe.png"
+        src="/website-wireframe.png"
         alt="photo"
-        className="relative object-cover w-full h-full rounded lg:rounded-2xl"
-        width={1000}
-        height={1000}
+        className="relative object-cover h-full w-full rounded lg:rounded-2xl"
+        height="1000"
+        width="800"
       />
     </motion.div>
   );

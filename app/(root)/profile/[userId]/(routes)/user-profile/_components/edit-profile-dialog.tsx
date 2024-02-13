@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import { User } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/hooks/use-modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Pencil } from "lucide-react";
@@ -39,7 +38,6 @@ const formSchema = z.object({
   username: z.optional(z.string().min(1)),
   bio: z.optional(z.string().min(1)),
   profileImageUrl: z.optional(z.string().min(1)),
-  backgroundImageUrl: z.optional(z.string().min(1)),
 });
 
 type EditProfileButtonProps = {
@@ -47,7 +45,6 @@ type EditProfileButtonProps = {
 }
 
 export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
-  const { onClose } = useModal();
     const router = useRouter();
     // TODO: Get the current logged in user and fetch it's details from the database
 
@@ -57,7 +54,6 @@ export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
             username: user?.username ?? "",
             bio: user?.bio ?? "",
             profileImageUrl: user?.profileImageUrl ??"",
-            backgroundImageUrl: user?.backgroundImageUrl ?? ""
         }
     })
 
@@ -66,12 +62,10 @@ export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             // TODO: Axios API Request
-            //await axios.post(`/api/profile/edit-profile`, values);
-            console.log(values)
+            await axios.patch(`/api/profile/edit-profile/${user?.id}`, values);
             toast.success("Profile Updated");
             form.reset();
             router.refresh();
-            onClose();
         } catch (error) {
             toast.error("Something went wrong. Please try again.");
         }
@@ -79,7 +73,6 @@ export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
 
     const handleClose = () => {
         form.reset();
-        onClose();
     }
   return (
 
@@ -95,7 +88,7 @@ export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-6 px-4">
+            <div className="space-y-4 px-4">
               <FormField
                   control={form.control}
                   name="profileImageUrl"
@@ -110,24 +103,6 @@ export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
                         />
                       </FormControl>
                       <FormDescription>Max File Size: 16MB </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="backgroundImageUrl"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col items-center text-center mx-auto gap-y-2" >
-                      <FormLabel>Background Image</FormLabel>
-                      <FormControl>
-                        <FileUpload
-                          endpoint="postImageUrl"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormDescription>16:9 Aspect Ratio Recommended</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -172,7 +147,7 @@ export const EditProfileDialog = ({ user }: EditProfileButtonProps) => {
               <Button variant="ghost" disabled={isLoading} onClick={() => form.reset()}>
                 Reset
               </Button>
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto  rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
                 {isLoading ? <LoadingSpinner /> : "Update"}
               </Button>
             </DialogFooter>

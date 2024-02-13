@@ -16,8 +16,9 @@ export const getFollowRequests = async () => {
             include: {
                 follower: {
                     select: {
-                        userId: true,
-                        username: true
+                        id: true,
+                        username: true, 
+                        profileImageUrl: true
                     }
                 }
             }

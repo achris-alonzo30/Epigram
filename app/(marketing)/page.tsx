@@ -17,7 +17,6 @@ const MarketingPage = () => {
         <MarketingFeatures />
         <MarketingCTA />
       </div>
-      
       <MarketingFooter />
     </div>
   );

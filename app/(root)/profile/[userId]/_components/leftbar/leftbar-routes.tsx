@@ -12,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 import { SetSettings } from "@/components/modals/set-settings";
 import { ViewNotifiactions } from "@/components/modals/view-notifications";
 
-
 type LeftbarRoutesProps = {
   userId: User["id"];
 }

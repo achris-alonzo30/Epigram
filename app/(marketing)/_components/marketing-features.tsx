@@ -36,7 +36,7 @@ export const MarketingFeatures = () => {
         }}
         viewport={{ once: true }}
       >
-        Strength Empowers All
+        Paw-erful Social Networking
       </motion.h1>
       <motion.p
         className="mt-2 text-center text-base md:text-lg text-zinc-600 dark:text-zinc-400"
@@ -50,7 +50,7 @@ export const MarketingFeatures = () => {
         }}
         viewport={{ once: true }}
       >
-        Discover how our core values empower you to be a source of strength for yourself and others.
+        Experience the paw-er of social networking with Epigram&apos;s features, connecting pets and their owners in a unique way.
       </motion.p>
       <div className="w-full">
         <InfiniteMovingCards direction="right" speed="slow" />

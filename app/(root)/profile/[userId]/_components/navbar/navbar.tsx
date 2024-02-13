@@ -13,9 +13,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
-import { MobileSidebar } from "./mobile-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
-
+import { MobileSidebar } from "../mobile-sidebar/mobile-sidebar";
+import { SearchBar } from "@/components/search-bar";
 
 type NavbarProps = {
     profileImageUrl: User["profileImageUrl"];
@@ -31,6 +31,7 @@ export const Navbar = ({profileImageUrl, username, userId}: NavbarProps) => {
         <div className="px-4 py-3 border-b h-full flex items-center shadow-sm bg-white dark:bg-zinc-900 dark:border-zinc-700">
             <MobileSidebar userId={userId!}/>
             <div className="flex gap-x-2 ml-auto">
+                <SearchBar />
                 <ThemeToggle />
                 <DropdownMenu modal={false}>
                     <DropdownMenuTrigger>

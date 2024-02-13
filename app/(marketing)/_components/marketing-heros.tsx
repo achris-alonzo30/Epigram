@@ -5,11 +5,12 @@ import { ButtonRotatingBackgroundGradient } from "@/components/animated-ui/butto
 
 export const MarketingHeros = () => {
 
+  // Where Every Pet Has Its Own Story
   return (
-    <div className="items-center w-full px-5 py-12 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
-      <div className="max-w-3xl mx-auto text-center ">
+    <div className="items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
+      <div className="max-w-3xl  mx-auto text-center ">
         <motion.h1
-          className="font-extrabold text-6xl lg:text-7xl mb-1 text-zinc-800 dark:text-zinc-100"
+          className="font-extrabold text-6xl lg:text-7xl  text-zinc-800 dark:text-zinc-100"
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
@@ -20,13 +21,11 @@ export const MarketingHeros = () => {
           }}
           viewport={{ once: true }}
         >
-          Thrive Longer, <br />
-          Live Stronger  <br />
-          with{" "}
+          Your Pet&apos;s Tale Begins on{" "}
           <TextGradient fontSize={["text-6xl lg:text-7xl"]} fontStyle="font-extrabold">
             Epigram
           </TextGradient>
-
+          
         </motion.h1>
         <motion.p
           className="max-w-xl mx-auto mt-8 text-xl lg:text-2xl font-medium text-zinc-600 dark:text-zinc-300"
@@ -40,7 +39,8 @@ export const MarketingHeros = () => {
           }}
           viewport={{ once: true }}
         >
-          Unlock Your Best Self
+          Every pet has a story. <br/>
+          It begins with a post.
         </motion.p>
       </div>
       <motion.div
@@ -57,7 +57,7 @@ export const MarketingHeros = () => {
       > 
         
           <ButtonRotatingBackgroundGradient route="/create-profile">
-            Start Here
+            Enter to Petcentric Universe
           </ButtonRotatingBackgroundGradient>
         
       </motion.div>
