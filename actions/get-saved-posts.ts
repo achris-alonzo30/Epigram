@@ -1,17 +1,16 @@
-import { db } from "@/lib/db"
+import { db } from "@/lib/db";
 
-export const getSavedPosts = async(postId: string) => {
-    try {
-        const user = await db.save.findMany({
-            where: {
-                postId
-            },
-            
-        })
+export const getSavedPosts = async (postId: string) => {
+  try {
+    const posts = await db.save.findMany({
+      where: {
+        postId,
+      },
+    });
 
-        return user;
-    } catch (error) {
-        console.log("[GET_SAVED_POSTS]", error)
-        return null;
-    }
-}
+    return posts;
+  } catch (error) {
+    console.log("[GET_SAVED_POSTS]", error);
+    return null;
+  }
+};

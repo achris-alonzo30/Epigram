@@ -22,10 +22,9 @@ type NotificationProps = {
         followingId: string;
         createdAt: Date;
     })[] | null
-    loginUser: User | null;
 }
 
-export const Notifications = ({ followRequests, loginUser }: NotificationProps) => {
+export const Notifications = ({ followRequests }: NotificationProps) => {
     // TODO: Update the notifications once login user accepted the follow request
     const handleAcceptRequest = async (followerId: string, followerUsername: string) => {
         try {

@@ -19,7 +19,7 @@ export const FeatureLinks = [
         icon: GalleryVerticalEnd
     },
     {
-       title: "Pet-centric Storytelling",
+       title: "Pet-Centric Storytelling",
        description: "Create a unique and engaging storytelling experience centered explicitly on pets.",
        icon: BookOpenText
     },

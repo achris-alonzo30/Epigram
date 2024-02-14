@@ -30,7 +30,7 @@ type CommentFormProps = {
 }
 
 export const CommentForm = ({ post, userId }: CommentFormProps) => {
-    
+
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -44,8 +44,8 @@ export const CommentForm = ({ post, userId }: CommentFormProps) => {
             const response = await axios.post(`/api/posts/${post.id}/comment-post`, values)
             toast.success("Comment added successfully");
             form.reset();
-            
-            
+
+
         } catch (error) {
             toast.error("Comment failed to add. Please try again.");
         }
@@ -70,7 +70,7 @@ export const CommentForm = ({ post, userId }: CommentFormProps) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Textarea {...field} placeholder="Add a comment..." onKeyDown={handleKeyPress}/>
+                                    <Textarea {...field} placeholder="Add a comment..." onKeyDown={handleKeyPress} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

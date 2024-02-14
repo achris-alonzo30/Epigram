@@ -8,7 +8,7 @@ type TextGradientProps = {
     fontStyle?: string;
 }
 
-const style = "inline-flex animate-text-gradient bg-gradient-to-r from-[#FFA0A0] via-[#7600FF] to-[#c7d2fe] bg-[240%_auto] bg-clip-text text-transparent"
+const style = " animate-text-gradient bg-gradient-to-r from-[#FFA0A0] via-[#7600FF] to-[#c7d2fe] bg-[240%_auto] bg-clip-text text-transparent"
 
 export const TextGradient = ({ isHeading, isParagraph, children, fontSize, fontStyle }: TextGradientProps) => {
     if (isHeading) {

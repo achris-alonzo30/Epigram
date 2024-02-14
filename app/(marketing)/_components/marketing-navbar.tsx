@@ -1,19 +1,24 @@
+import { 
+  SignInButton, 
+  UserButton, 
+  auth
+} from "@clerk/nextjs";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { SignInButton, UserButton, auth} from "@clerk/nextjs";
 
-export const MarketingHeader = () => {
+export const Navbar = () => {
   const { userId } = auth();
 
   return (
     <header className="relative shadow-sm overflow-hidden border-b border-white/5 py-6 px-4">
       <div className="relative flex justify-between w-full mx-auto max-w-7xl">
         <div className="flex flex-row items-center justify-between text-sm text-white lg:justify-start">
-          <Logo />
+          <Logo isText />
         </div>
         <nav className="items-center flex-grow flex flex-row justify-end md:pb-0">
           <div className="inline-flex items-center gap-2 list-none lg:ml-auto">
+            
             <ThemeToggle />
             {!userId ? (
             <SignInButton mode="modal">

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { getLoginUser } from "@/actions/get-login-user";
+import { getLoginUser } from "@/actions/auth-service";
 
 export async function POST(req: Request) {
   try {

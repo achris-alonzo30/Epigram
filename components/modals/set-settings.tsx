@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Settings } from "lucide-react";
-
 import {
     Form, 
     FormControl, 
@@ -35,7 +33,7 @@ const formSchema = z.object({
 })
 
 
-export const SetSettings = () => {
+export const SetSettings = ({ children }: { children: React.ReactNode }) => {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
 
@@ -69,10 +67,7 @@ export const SetSettings = () => {
     return (
         <Dialog onOpenChange={handleClose}>
             <DialogTrigger asChild>
-                <button  className="flex items-center px-4 py-2 mt-5 text-gray-500 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-950 dark:hover:text-gray-400 hover:text-gray-700">
-                    <Settings className="w-5 h-5" />
-                    <span className="mx-4 font-medium">Settings</span>
-                </button>
+                {children}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] px-2">
                 <DialogHeader>
@@ -104,7 +99,7 @@ export const SetSettings = () => {
                         </div>
                         <DialogFooter className="flex justify-end items-center gap-x-2 px-4">
                             <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
-                                {isLoading ? <LoadingSpinner /> : "Save"}
+                                {isLoading ? <LoadingSpinner size="sm" /> : "Save"}
                             </Button>   
                         </DialogFooter>                         
                     </form>

@@ -17,7 +17,8 @@ export default function GlobalError ({ error, reset }: ErrorProps) {
   };
 
   return (
-    <section className="">
+    <section className="relative h-full w-full bg-zinc-100 dark:bg-zinc-950  ">
+      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_2px,transparent_2px),linear-gradient(to_bottom,#4f4f4f2e_2px,transparent_0px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_100%_at_50%_0%,#000_70%,transparent_100%)]">
       <div className="container flex items-center justify-center text-center min-h-screen px-6 py-12 mx-auto">
         <div>
           <p className="text-8xl font-semibold text-[#7600FF]">
@@ -39,6 +40,7 @@ export default function GlobalError ({ error, reset }: ErrorProps) {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

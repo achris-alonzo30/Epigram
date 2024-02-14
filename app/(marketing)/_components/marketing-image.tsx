@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useScroll, motion, useTransform, } from "framer-motion"
 
-export const MarketingImage = () => {
+export const HeroImage = () => {
   const ref= useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,

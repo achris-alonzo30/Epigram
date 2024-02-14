@@ -1,7 +1,7 @@
 
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { getLoginUser } from "@/actions/get-login-user";
+import { getLoginUser } from "@/actions/auth-service";
 import { db } from "@/lib/db";
 
 export async function GET(

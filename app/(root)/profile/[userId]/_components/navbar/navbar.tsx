@@ -12,36 +12,35 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { SearchBar } from "@/components/search-bar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileSidebar } from "../mobile-sidebar/mobile-sidebar";
-import { SearchBar } from "@/components/search-bar";
 
-type NavbarProps = {
-    profileImageUrl: User["profileImageUrl"];
-    username: User["username"];
-    userId: User["id"];
-}
-
-export const Navbar = ({profileImageUrl, username, userId}: NavbarProps) => {
+export const Navbar = ({ user }: { user: User }) => {
     const { signOut } = useClerk();
     const router = useRouter();
     
     return (
         <div className="px-4 py-3 border-b h-full flex items-center shadow-sm bg-white dark:bg-zinc-900 dark:border-zinc-700">
-            <MobileSidebar userId={userId!}/>
+            <MobileSidebar userId={user.id}/>
             <div className="flex gap-x-2 ml-auto">
                 <SearchBar />
                 <ThemeToggle />
                 <DropdownMenu modal={false}>
                     <DropdownMenuTrigger>
-                        <Image src={profileImageUrl!} alt="profile" width={35} height={35} className="rounded-full aspect-square object-cover border-2 border-zinc-500 dark:border-zinc-200 hover:border-zinc-200 dark:hover:border-zinc-500 transform hover:-translate-y-1 transition duration-400 " />
+                        
+                        <Image src={user.profileImageUrl!} alt="profile" width={35} height={35} className="rounded-full aspect-square object-cover border-2 border-zinc-500 dark:border-zinc-200 hover:border-zinc-200 dark:hover:border-zinc-500 transform hover:-translate-y-1 transition duration-400 " />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuLabel className="capitalize text-[#7600FF] font-bold line-clamp-1">{username}</DropdownMenuLabel>
+                        <DropdownMenuLabel className="capitalize text-[#7600FF] font-bold line-clamp-1">{user.username}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                        <DropdownMenuItem>Settings</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Profile
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Settings
+                        </DropdownMenuItem>
                         <DropdownMenuItem>
                             <button onClick={() => signOut(() => router.push("/"))}>
                                 Logout

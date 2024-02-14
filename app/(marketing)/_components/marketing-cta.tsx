@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MarketingCTALinks } from "@/lib/map-links";
 
-export const MarketingCTA = () => {
+export const CallToAction = () => {
   return (
     <div className="container grid grid-cols-1 gap-8 px-6 lg:py-36 md:py-24 sm:py-12 mx-auto lg:grid-cols-2 mb-12">
       {MarketingCTALinks.map((link) => (

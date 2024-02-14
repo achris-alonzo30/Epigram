@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { getLoginUser } from "@/actions/get-login-user";
+import { getLoginUser } from "@/actions/auth-service";
 import { STATUS } from "@prisma/client";
 
 export async function POST(
@@ -83,6 +83,15 @@ export async function PATCH(
         id: existingFollowRequest.id,
       },
       data: {
+        status: STATUS.ACCEPTED,
+      },
+    });
+    
+    // Create a new follow relationship from the user being followed to the logged in user
+    await db.follow.create({
+      data: {
+        followerId: loginUser?.id!,
+        followingId: existingFollowRequest.followerId,
         status: STATUS.ACCEPTED,
       },
     });

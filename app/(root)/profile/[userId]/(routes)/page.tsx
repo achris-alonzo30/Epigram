@@ -1,19 +1,16 @@
+import { getAllPosts } from "@/actions/get-all-posts";
 
+import { Focus } from "lucide-react";
 import { PostCard} from "./_components/post-card";
 import { HomepageHeadings } from "./_components/homepage-headings";
 
-import { getAllPosts } from "@/actions/get-all-posts";
-
-const ProfilePage = async ({ params }: {params: { userId: string }}) => {
+const ProfilePage = async ({ params }: { params: { userId: string } }) => {
     // TODO: Add loading state
 
     // TODO: Add Infinite scroll
     // TODO: Fetch all posts of the user and the accepted followers
 
     const users = await getAllPosts(params.userId)
-    const currentUserPosts = users?.posts;
-    const followingPosts = users?.following.map((followedUser) => followedUser.follower.posts);
-
     
     return (
         <div className="p-6">
@@ -23,11 +20,12 @@ const ProfilePage = async ({ params }: {params: { userId: string }}) => {
                 {users && users.posts?.length > 0 ? (
                     <PostCard users={users!} userId={params.userId} />
                 ): (
-                    <div className="flex justify-center items-center mt-48">
-                        {/* TODO: Add an image and animation */}
+                    <div className="flex flex-col gap-y-2 justify-center items-center mt-48">
+                        <Focus className="h-10 w-10" />
                         Create your first post
                     </div>
                 )}
+                
             </div>
         </div>
     )

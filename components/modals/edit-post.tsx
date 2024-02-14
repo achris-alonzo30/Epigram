@@ -166,7 +166,7 @@ export function EditPost({ post, children }: EditPostProps) {
                 Reset
               </Button>
               <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
-                {isLoading ? <LoadingSpinner /> : "Submit"}
+                {isLoading ? <LoadingSpinner size="sm" /> : "Submit"}
               </Button>
             </DialogFooter>
           </form>

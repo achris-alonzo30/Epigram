@@ -19,7 +19,7 @@ export const SearchBar = () => {
         onChange={onChange}
         value={value}
         className="w-full md:w-[400px] pl-9 rounded-xl bg-slate-100 focus-visible:ring-slate-200"
-        placeholder="Elon Musk"
+        placeholder="Search Furry Friends..."
       />
     </div>
   );

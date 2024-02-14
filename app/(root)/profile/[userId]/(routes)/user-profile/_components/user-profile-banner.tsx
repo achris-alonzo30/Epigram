@@ -24,18 +24,23 @@ type UserProfileBannerProps = {
 }
 
 export const UserProfileBanner = ({ user }: UserProfileBannerProps) => {
-
+    if (!user) return null;
+    
     return (
         <div className="p-6 border shadow-md rounded-lg lg:ml-4 lg:mx-0 mx-2 ">
             <div className="flex flex-col px-3 py-1.5">   
                 <div className="p-2 flex flex-row justify-between items-center">
-                    <UserProfileBadge user={user!} />
+                    <UserProfileBadge profileImageUrl={user?.profileImageUrl} username={user?.username} />
                     <div>
-                        <EditProfileDialog user={user!} />
+                        <EditProfileDialog user={user} />
                     </div>
                 </div>
-                <UserProfileBio user={user!} />
-                <UserProfileSocialCount user={user!}/>
+                <UserProfileBio userBio={user?.bio} />
+                <UserProfileSocialCount 
+                    userPostsCount={user?.posts.length} 
+                    userFollowersCount={user?.followers.length} 
+                    userFollowingCount={user?.following.length}
+                />
             </div>
         </div>
     )

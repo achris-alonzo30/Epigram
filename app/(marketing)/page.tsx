@@ -1,23 +1,22 @@
-import { MarketingCTA } from "./_components/marketing-cta";
-import { MarketingHeros } from "./_components/marketing-heros";
-import { MarketingImage } from "./_components/marketing-image";
-import { MarketingHeader } from "./_components/marketing-navbar";
-import { MarketingFooter } from "./_components/marketing-footer";
-import { MarketingFeatures } from "./_components/marketing-features";
-
+import { Heros } from "./_components/marketing-heros";
+import { Navbar } from "./_components/marketing-navbar";
+import { Footer } from "./_components/marketing-footer";
+import { HeroImage } from "./_components/marketing-image";
+import { CallToAction } from "./_components/marketing-cta";
+import { Features } from "./_components/marketing-features";
 
 const MarketingPage = () => {
   // TODO: Make this responsive
   return (
     <div className="dark:bg-gradient-to-t from-[#030303] to-[#363636]">
-      <MarketingHeader />
+      <Navbar />
       <div className="flex flex-col items-center justify-center">
-        <MarketingHeros />
-        <MarketingImage />
-        <MarketingFeatures />
-        <MarketingCTA />
+        <Heros />
+        <HeroImage />
+        <Features />
+        <CallToAction />
       </div>
-      <MarketingFooter />
+      <Footer />
     </div>
   );
 };

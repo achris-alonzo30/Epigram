@@ -21,7 +21,7 @@ const fadeInAnimationVariants = {
   },
 };
 
-export const MarketingFeatures = () => {
+export const Features = () => {
   return (
     <div className="container px-6 md:py-24 py-12 mx-auto">
       <motion.h1

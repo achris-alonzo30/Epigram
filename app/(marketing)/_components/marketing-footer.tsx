@@ -10,7 +10,7 @@ import { getYear } from "@/lib/get-year";
 import { Separator } from "@/components/ui/separator";
 import { TextGradient } from "@/components/animated-ui/text-gradient";
 
-export const MarketingFooter = () => {
+export const Footer = () => {
   const year = getYear();
   return (
     <footer className="my-3 border-t border-slate-200 md:my-5 dark:border-slate-700">
