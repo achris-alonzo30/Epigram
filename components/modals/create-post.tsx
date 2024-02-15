@@ -44,7 +44,7 @@ const formSchema = z.object({
 });
 
 export function CreatePost({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const form = useForm({
@@ -60,21 +60,19 @@ export function CreatePost({ children }: { children: React.ReactNode }) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // TODO: Axios API Request
       await axios.post(`/api/posts/create-post`, values);
-
       toast.success("Post created");
       form.reset();
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {
-      setIsOpen(false)
+      setOpen(false)
     }
   }
 
   const handleClose = () => {
-    setIsOpen(false);
+    setOpen(false);
     form.reset();
   }
 

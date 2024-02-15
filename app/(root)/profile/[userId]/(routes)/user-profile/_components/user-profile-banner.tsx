@@ -27,8 +27,8 @@ export const UserProfileBanner = ({ user }: UserProfileBannerProps) => {
     if (!user) return null;
     
     return (
-        <div className="p-6 border shadow-md rounded-lg lg:ml-4 lg:mx-0 mx-2 ">
-            <div className="flex flex-col px-3 py-1.5">   
+        <div className="p-6 border shadow-md shadow-zinc-500 rounded-lg ml-4 lg:mr-0 mr-4">
+            <div className="flex flex-col px-3 py-2">   
                 <div className="p-2 flex flex-row justify-between items-center">
                     <UserProfileBadge profileImageUrl={user?.profileImageUrl} username={user?.username} />
                     <div>

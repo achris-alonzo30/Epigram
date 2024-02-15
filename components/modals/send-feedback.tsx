@@ -50,7 +50,7 @@ const formSchema = z.object({
 
 
 export const SendFeedback = ({ children }: { children: React.ReactNode }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -69,12 +69,12 @@ export const SendFeedback = ({ children }: { children: React.ReactNode }) => {
         } catch (error) {
 
         } finally {
-            setIsOpen(false)
+            setOpen(false)
         }
     }
 
     const handleClose = () => {
-        setIsOpen(false);
+        setOpen(false);
         form.reset();
     }
 

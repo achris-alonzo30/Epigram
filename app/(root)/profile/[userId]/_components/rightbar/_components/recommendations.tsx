@@ -16,7 +16,7 @@ type ActivityTimelineProps = {
 
 export const Recommendations = ({ users, loginUser }: ActivityTimelineProps) => {
     const [ followedUsers, setFollowedUsers ] = useState<string[]>([])
-    
+
     useEffect(() => {
         const fetchFollowStatus = async () => {
             try {

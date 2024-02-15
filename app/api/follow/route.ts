@@ -1,8 +1,8 @@
-
+import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { getLoginUser } from "@/actions/auth-service";
-import { db } from "@/lib/db";
+
 
 export async function GET(
     req: Request,
@@ -11,6 +11,8 @@ export async function GET(
         const { userId } = auth();
         const loginUser = await getLoginUser();
 
+        if (!userId || !loginUser) return new NextResponse("Unauthorized", { status: 401 });
+        
         const followedusers = await db.follow.findMany({
             where: {
                 followerId: loginUser?.id

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { User } from "@prisma/client";
+import { Block, User } from "@prisma/client";
 import { useRouter } from 'next/navigation';
 import { useClerk } from "@clerk/clerk-react";
 
@@ -17,13 +17,21 @@ import { SearchBar } from "@/components/search-bar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileSidebar } from "../mobile-sidebar/mobile-sidebar";
 
-export const Navbar = ({ user }: { user: User }) => {
+
+
+type NavbarProps = {
+    user: User;
+    blockedUsers: {
+        blocked: User;
+    }[] | null;
+}   
+
+export const Navbar = ({ user, blockedUsers }: NavbarProps) => {
     const { signOut } = useClerk();
     const router = useRouter();
-    
     return (
         <div className="px-4 py-3 border-b h-full flex items-center shadow-sm bg-white dark:bg-zinc-900 dark:border-zinc-700">
-            <MobileSidebar userId={user.id}/>
+            <MobileSidebar userId={user.id} userPrivacy={user.isPrivate} blockedUsers={blockedUsers} />
             <div className="flex gap-x-2 ml-auto">
                 <SearchBar />
                 <ThemeToggle />

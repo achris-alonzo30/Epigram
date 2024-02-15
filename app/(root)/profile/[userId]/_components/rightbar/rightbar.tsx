@@ -1,11 +1,9 @@
 import { User } from "@prisma/client";
-import { getAllUsers } from "@/actions/get-all-users";
-import { getFollowRequests } from "@/actions/get-follow-requests";
+import { getAllUsers } from "@/actions/other-users-service";
+import { getFollowRequests } from "@/actions/follow-service";
 
 import { Notifications } from "./_components/notifications";
 import { Recommendations } from "./_components/recommendations";
-
-
 
 export const Rightbar = async ({ user }: { user: User}) => {
     const users = await getAllUsers();

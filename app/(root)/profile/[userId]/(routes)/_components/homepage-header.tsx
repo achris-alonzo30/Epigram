@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CreatePost } from "@/components/modals/create-post";
 
-export const HomepageHeadings = () => {
+export const HomepageHeader = () => {
     return (
         <div className="flex justify-between items-center lg:ml-4 lg:mx-0 mx-2">
             <h1 className="text-xl font-semibold">Home</h1>

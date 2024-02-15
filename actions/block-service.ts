@@ -30,11 +30,11 @@ export const isBlockedByUser = async (id: string) => {
 
 export const getBlockedUsers = async (id: string) => {
   try {
-    const self = await getLoginUser();
+    if ( !id ) return null;
 
     const blocked = await db.block.findMany({
       where: {
-        blockerId: self?.id,
+        blockerId: id,
       },
       include: {
         blocked: true,

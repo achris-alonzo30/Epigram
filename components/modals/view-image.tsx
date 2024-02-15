@@ -1,16 +1,7 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
 import Image from "next/image"
-import { useState } from "react";
-import toast from 'react-hot-toast';
 import { Post } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-
 
 import {
     Dialog,

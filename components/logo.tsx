@@ -5,7 +5,7 @@ type LogoProps = {
   isText?: boolean;
 }
 
-export const Logo = ({ isText }: Props ) => {
+export const Logo = ({ isText }: LogoProps ) => {
   return (
     <div className="flex gap-x-2 items-center">
       <Image src="/logo.svg" alt="logo" width={40} height={40} />

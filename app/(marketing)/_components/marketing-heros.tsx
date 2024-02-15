@@ -1,13 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Skeleton } from "@/components/ui/skeleton";
 import { TextGradient } from "@/components/animated-ui/text-gradient";
 import { ButtonRotatingBackgroundGradient } from "@/components/animated-ui/button-rotating-background-gradient";
 
 export const Heros = () => {
 
-  // Where Every Pet Has Its Own Story
   return (
     <div className="items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
       <div className="max-w-3xl  mx-auto text-center ">
@@ -59,7 +57,7 @@ export const Heros = () => {
       > 
         
           <ButtonRotatingBackgroundGradient route="/create-profile">
-            Enter to Petcentric Universe
+           🪐 Enter to Petcentric Universe 🪐
           </ButtonRotatingBackgroundGradient>
         
       </motion.div>
@@ -67,14 +65,3 @@ export const Heros = () => {
   );
 };
 
-Heros.Skeleton = function SkeletonHeros() {
-  return (
-    <div className="items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
-      <div className="max-w-3xl  mx-auto text-center ">
-        <Skeleton className="w-[500px] h-[72px] rounded-xl" />
-        <Skeleton className="w-[500px] h-[72px] rounded-xl" />
-      </div>
-      <Skeleton className="flex flex-col justify-center gap-3 mt-6 sm:flex-row mx-auto w-full" />
-    </div>
-  );
-}

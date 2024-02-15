@@ -1,10 +1,17 @@
 import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs";
 import { STATUS } from "@prisma/client";
-import { getLoginUser } from "./auth-service";
+import { NextResponse } from "next/server";
+import { getLoginUser } from "@/actions/auth-service";
 
-export const getFollowRequests = async () => {
+
+export async function GET(req: Request) {
   try {
+    const { userId } = auth();
     const loginUser = await getLoginUser();
+
+    if (!userId || !loginUser)
+      return new NextResponse("Unauthorized", { status: 401 });
 
     const followRequests = await db.follow.findMany({
       where: {
@@ -22,9 +29,9 @@ export const getFollowRequests = async () => {
       },
     });
 
-    return followRequests;
+    return NextResponse.json({ followRequests }, { status: 200 });
   } catch (error) {
     console.log("[GET_FOLLOW_REQUESTS]", error);
-    return null;
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
-};
+}

@@ -2,11 +2,14 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { Post } from "@prisma/client";
 import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Pencil } from "lucide-react";
 
 import {
   Form,
@@ -30,7 +33,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUpload } from "@/components/file-upload";
 import { LoadingSpinner } from "@/components/loading-spinner";
-import { User, Post } from "@prisma/client";
+
 
 const formSchema = z.object({
   caption: z.string().min(1, {
@@ -44,13 +47,8 @@ const formSchema = z.object({
   }),
 });
 
-type EditPostProps = {
-  post: Post;
-  children: React.ReactNode;
-}
-
-export function EditPost({ post, children }: EditPostProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function EditPost({ post }: { post: Post }) {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const form = useForm({
@@ -83,19 +81,21 @@ export function EditPost({ post, children }: EditPostProps) {
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {
-      setIsOpen(false)
+      setOpen(false)
     }
   }
 
   const handleClose = () => {
-    setIsOpen(false);
+    setOpen(false);
     form.reset();
   }
 
   return (
     <Dialog onOpenChange={handleClose}>
       <DialogTrigger asChild>
-        {children}
+        <button className="-mt-1.5">
+            <Pencil className="h-4 w-4 text-zinc-500 hover:text-zinc-400 transform hover:-translate-y-1 transition duration-400 " />
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] px-2">
         <DialogHeader>

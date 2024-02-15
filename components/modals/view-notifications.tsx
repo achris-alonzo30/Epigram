@@ -1,23 +1,14 @@
 "use client";
-import * as z from "zod";
+
 import axios from "axios";
-import { useState } from "react";
-import toast from 'react-hot-toast';
-import { STATUS } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import toast from "react-hot-toast";
+import { User, STATUS } from "@prisma/client";
+import { useState, useEffect } from "react";
+
 
 import { Bell } from "lucide-react"
 
-import { 
-    Form, 
-    FormControl, 
-    FormDescription, 
-    FormField, 
-    FormItem, 
-    FormLabel 
-} from "@/components/ui/form";
 import {
     Dialog,
     DialogTrigger,
@@ -25,44 +16,64 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
+import { Button } from "../ui/button";
 
 
-const formSchema = z.object({
-    actions: z.nativeEnum(STATUS),
-})
+type FollowRequestsProps = {
+    follower: {
+        id: User["id"];
+        username: User["username"];
+        profileImageUrl: User["profileImageUrl"];
+    };
+    id: string;
+    createdAt: string;
+    followerId: string;
+    followingId: string;
+    status: STATUS;
+
+}
 
 export const ViewNotifiactions = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const router = useRouter();
+    const [open, setOpen] = useState(false);
+    const [followRequests, setFollowRequests] = useState<FollowRequestsProps[]>([]);
 
-    const form = useForm({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            actions: STATUS.PENDING,
+    useEffect(() => {
+        const fetchFollowRequests = async () => {
+            try {
+                const response = await axios.get("/api/follow/requests");
+                setFollowRequests(response.data.followRequests);
+            } catch (error) {
+                console.log("[GET_FOLLOW_REQUESTS]", error);
+                return null;
+            }
         }
-    })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+        fetchFollowRequests();
+    }, [])
+
+    console.log(followRequests)
+
+    const handleAcceptRequest = async (followerId: string, followerUsername: string) => {
         try {
-            // TODO: Axios API Request
-
-            toast.success("Post created");
-            form.reset();
-            router.refresh();
+            await axios.patch(`/api/follow/${followerId}`)
+            toast.success(`Successfully accepted ${followerUsername} request 🎉`)
         } catch (error) {
-            toast.error("Something went wrong. Please try again.");
-        } finally {
-            setIsOpen(false)
+            toast.error("Error accepting request. Please try again.")
         }
     }
 
-    const handleClose = () => {
-        setIsOpen(false);
-        form.reset();
+    const handleRejectRequest = async (followerId: string, followerUsername: string) => {
+        try {
+            await axios.delete(`/api/follow/${followerId}`)
+            toast.success(`Successfully rejected ${followerUsername} request 😭`)
+        } catch (error) {
+            toast.error("Error rejecting request. Please try again.")
+        }
     }
+
 
     return (
-        <Dialog onOpenChange={handleClose}>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <button className="flex items-center px-4 py-2 mt-5 text-gray-500 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-950 dark:hover:text-gray-400 hover:text-gray-700">
                     <Bell className="w-5 h-5" />
@@ -73,32 +84,45 @@ export const ViewNotifiactions = () => {
                 <DialogHeader>
                     <DialogTitle className="text-zinc-800 dark:text-zinc-100 mb-4 text-lg font-medium">Notifications</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col gap-y-2">
-                    <Form {...form}>
-                        {/* Render the notifications informations here, include user avatar, username, and the message */}
-                        {/* Different types of notifications: liked your posts, commented to your posts, and follower request */}
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8 px-2">
-                            <div>
-                                <div className="space-y-4">
-                                <FormField
-                                    control={form.control}
-                                    name="actions"
-                                    render={({ field }) => (
-                                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                                            <div className="space-y-0.5">
-                                            <FormLabel>Privacy</FormLabel>
-                                            <FormDescription className="text-zinc-600 dark:text-zinc-400">Change privacy settings for profile visibility.</FormDescription>
+                <div className="flex flex-col max-h-72 overflow-y-auto">
+                    <div className="space-y-4">
+                        <div className="flex flex-col space-y-0.5 rounded-lg border p-3 shadow-sm">
+                            {followRequests && followRequests.length === 0 ? (
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">You have no notifications at the moment. 😭</p>
+                            ) : (
+                                followRequests.map((followRequest) => (
+                                    <div className="flex flex-row items-center justify-between rounded-lg border p-2 shadow-sm" key={followRequest.follower.id}>
+                                        <div className="flex items-center gap-x-2">
+                                            <Image src={followRequest.follower.profileImageUrl!} alt="logo" width="30" height="30" className="rounded-full aspect-square object-cover  " />
+                                            <div className="flex flex-col">
+                                                <h2 className="text-sm">{followRequest.follower.username}</h2>
+                                                <p className="text-xs text-zinc-400 dark:text-zinc-500">Sent you a follow request.</p>
                                             </div>
-                                            <FormControl>
-                                                
-                                            </FormControl>
-                                        </FormItem>
-                                    )}
-                                />
-                                </div>
-                            </div>
-                        </form>
-                    </Form>
+                                        </div>
+                                        <div className="flex items-center gap-x-4">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="border border-emerald-600 py-0.5 px-2 hover:bg-emerald-600 hover:text-white  transform hover:-translate-y-1 transition duration-400"
+                                                onClick={() => handleAcceptRequest(followRequest.follower.id, followRequest.follower.username)}
+                                            >
+                                                Accept
+                                            </Button>
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="border border-destructive py-0.5 px-2 hover:bg-destructive hover:text-white transform hover:-translate-y-1 transition duration-400"
+                                                onClick={() => handleRejectRequest(followRequest.follower.id, followRequest.follower.username)}
+                                            >
+                                                Reject
+                                            </Button>
+                                        </div>
+
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>

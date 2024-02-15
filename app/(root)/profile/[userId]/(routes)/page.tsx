@@ -1,20 +1,17 @@
-import { getAllPosts } from "@/actions/get-all-posts";
+import { getAllPosts } from "@/actions/post-service";
 
 import { Focus } from "lucide-react";
 import { PostCard} from "./_components/post-card";
-import { HomepageHeadings } from "./_components/homepage-headings";
+import { HomepageHeader } from "./_components/homepage-header";
 
 const ProfilePage = async ({ params }: { params: { userId: string } }) => {
     // TODO: Add loading state
-
     // TODO: Add Infinite scroll
-    // TODO: Fetch all posts of the user and the accepted followers
-
     const users = await getAllPosts(params.userId)
     
     return (
         <div className="p-6">
-            <HomepageHeadings />
+            <HomepageHeader />
             <div className="flex flex-col items-center gap-y-4 my-4 mt-4">
                 {/* Check if User posts is empty */}
                 {users && users.posts?.length > 0 ? (

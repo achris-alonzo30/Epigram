@@ -27,7 +27,7 @@ model User {
   whoLikedIt Like[]    @relation("WhoLikedIt")
   whoSavedIt Save[]    @relation("WhoSavedIt")
 
-  following  Follow[] @relation("Following")
+  following Follow[] @relation("Following")
   followers Follow[] @relation("Followers")
 
   blocking  Block[] @relation("Blocking")
@@ -48,9 +48,9 @@ model Post {
   creatorId String
   creator   User   @relation("UserPost", fields: [creatorId], references: [id], onDelete: Cascade)
 
-  CommentedPost Comment[] @relation("CommentedPost")
-  LikedPost     Like[]    @relation("LikedPost")
-  SavedPost     Save[]    @relation("SavedPost")
+  Comments  Comment[] @relation("Comments")
+  LikedPost Like[]    @relation("LikedPost")
+  SavedPost Save[]    @relation("SavedPost")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -61,6 +61,7 @@ model Post {
 enum STATUS {
   ACCEPTED
   PENDING
+  BLOCKED
 }
 
 model Follow {
@@ -102,12 +103,11 @@ model Comment {
   postId      String
 
   commenter User @relation("Commenter", fields: [commenterId], references: [id], onDelete: Cascade)
-  post      Post @relation("CommentedPost", fields: [postId], references: [id], onDelete: Cascade)
+  post      Post @relation("Comments", fields: [postId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([commenterId, postId])
   @@index([commenterId])
   @@index([postId])
 }
@@ -130,7 +130,7 @@ model Like {
 
 model Save {
   id        String   @id @default(cuid())
-  isSaved   Boolean @default(false)
+  isSaved   Boolean  @default(false)
   createdAt DateTime @default(now())
 
   userId String

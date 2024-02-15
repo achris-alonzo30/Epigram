@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
+import { STATUS } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { getLoginUser } from "@/actions/auth-service";
+
 
 export async function POST(
   req: Request,
@@ -13,7 +15,43 @@ export async function POST(
     if (currentUser?.id === otherUserId)
       throw new Error("Cannot block yourself");
 
-    const otherUser = await db.user.findUnique({ where: { id: otherUserId } });
+    const otherUser = await db.user.findUnique({ 
+      where: { 
+        id: otherUserId 
+      } 
+    });
+
+    const existingRelationship1 = await db.follow.findFirst({
+      where: {
+        followerId: currentUser?.id, 
+        followingId: otherUser?.id,
+        status: { in: [STATUS.PENDING, STATUS.ACCEPTED] },
+      }
+    });
+
+    const existingRelationship2 = await db.follow.findFirst({
+      where: {
+        followerId:  otherUser?.id,
+        followingId: currentUser?.id,
+        status: { in: [STATUS.PENDING, STATUS.ACCEPTED] },
+      }
+    });
+
+    if (existingRelationship1) {
+      await db.follow.delete({
+        where: {
+          id: existingRelationship1.id
+        }
+      })
+    }
+
+    if (existingRelationship2) {
+      await db.follow.delete({
+        where: {
+          id: existingRelationship2.id
+        }
+      })
+    }
 
     const existingBlock = await db.block.findUnique({
       where: {
@@ -78,6 +116,36 @@ export async function DELETE(
     return NextResponse.json({ unblock }, { status: 200 });
   } catch (error) {
     console.log("[UNBLOCK_USER]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+}
+
+export async function GET(
+  req: Request,
+  { params }: { params: { otherUserId: string}}
+) {
+  try {
+    const currentUser = await getLoginUser();
+    const { otherUserId } = params;
+
+    if (!currentUser) return new NextResponse("Unauthorized", { status: 401 });
+
+    if (otherUserId === currentUser?.id)
+      throw new Error("Cannot block yourself");
+
+    const existingBlock = await db.block.findUnique({
+      where: {
+        blockerId_blockedId: {
+          blockedId: otherUserId,
+          blockerId: currentUser?.id!,
+        },
+      },
+    });
+
+    return NextResponse.json({existingBlock}, { status: 200 });
+
+  } catch (error) {
+    console.log("[GET_BLOCKED_USERS]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
