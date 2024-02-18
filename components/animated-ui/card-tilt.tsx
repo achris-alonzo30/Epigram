@@ -50,7 +50,7 @@ const CardTilt = ({ children }: { children: React.ReactNode }) => {
           transition: 'all 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s',
         }}
       >
-        <div className='group relative flex h-full w-full select-none items-center justify-center rounded-lg border border-zinc-900 bg-gradient-to-tr from-zinc-950 to-zinc-800 text-sm font-light text-zinc-300'>
+        <div className='group relative flex h-full w-full select-none items-center justify-center rounded-lg border dark:border-zinc-900 dark:bg-gradient-to-tr dark:from-zinc-950 dark:to-zinc-800 bg-gradient-to-tr from-zinc-200 to-zinc-50 text-sm font-light text-zinc-300'>
           <span className='text-md bg-gradient-to-t from-gray-400 to-white bg-clip-text p-2 text-transparent'>
             {children}
           </span>

@@ -57,13 +57,17 @@ export const Footer = () => {
 
             <div className="flex items-center">
               <Link
-                href="#"
+                href="https://www.linkedin.com/in/lonzochris/"
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="mx-2 text-zinc-600 transition-colors duration-300 dark:text-zinc-300 hover:text-[#7600FF]/70 dark:hover:text-[#7600FF]/60"
               >
                 <LinkedInLogoIcon className="w-5 h-5" />
               </Link>
               <Link
-                href="#"
+                href="https://github.com/achris-alonzo30?tab=repositories"
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="mx-2 text-zinc-600 transition-colors duration-300 dark:text-zinc-300 hover:text-[#7600FF]/70 dark:hover:text-[#7600FF]/60"
               >
                 <GitHubLogoIcon className="w-5 h-5" />
