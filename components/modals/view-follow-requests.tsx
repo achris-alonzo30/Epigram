@@ -3,9 +3,9 @@
 import axios from "axios";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import { User, STATUS } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-
+import { User, STATUS } from "@prisma/client";
 
 import { Bell } from "lucide-react"
 
@@ -16,7 +16,8 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { LoadingSpinner } from "@/components/loading-spinner";
 
 
 type FollowRequestsProps = {
@@ -33,15 +34,19 @@ type FollowRequestsProps = {
 
 }
 
-export const ViewNotifiactions = () => {
+export const ViewFollowRequests = () => {
     const [open, setOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [followRequests, setFollowRequests] = useState<FollowRequestsProps[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchFollowRequests = async () => {
             try {
                 const response = await axios.get("/api/follow/requests");
                 setFollowRequests(response.data.followRequests);
+                setIsLoading(false);
+                router.refresh();
             } catch (error) {
                 console.log("[GET_FOLLOW_REQUESTS]", error);
                 return null;
@@ -51,12 +56,13 @@ export const ViewNotifiactions = () => {
         fetchFollowRequests();
     }, [])
 
-    console.log(followRequests)
 
     const handleAcceptRequest = async (followerId: string, followerUsername: string) => {
         try {
             await axios.patch(`/api/follow/${followerId}`)
             toast.success(`Successfully accepted ${followerUsername} request 🎉`)
+            setIsLoading(true);
+            router.refresh();
         } catch (error) {
             toast.error("Error accepting request. Please try again.")
         }
@@ -66,6 +72,8 @@ export const ViewNotifiactions = () => {
         try {
             await axios.delete(`/api/follow/${followerId}`)
             toast.success(`Successfully rejected ${followerUsername} request 😭`)
+            setIsLoading(true);
+            router.refresh();
         } catch (error) {
             toast.error("Error rejecting request. Please try again.")
         }
@@ -75,7 +83,7 @@ export const ViewNotifiactions = () => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <button className="flex items-center px-4 py-2 mt-5 text-gray-500 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-950 dark:hover:text-gray-400 hover:text-gray-700">
+                <button className="flex items-center px-4 py-2 mt-5 text-zinc-500 transition-colors duration-300 transform rounded-md dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-950 dark:hover:text-zinc-400 hover:text-zinc-700">
                     <Bell className="w-5 h-5" />
                     <span className="mx-4 font-medium">Notifications</span>
                 </button>
@@ -88,7 +96,7 @@ export const ViewNotifiactions = () => {
                     <div className="space-y-4">
                         <div className="flex flex-col space-y-0.5 rounded-lg border p-3 shadow-sm">
                             {followRequests && followRequests.length === 0 ? (
-                                <p className="text-sm text-zinc-600 dark:text-zinc-400">You have no notifications at the moment. 😭</p>
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">You have no follow requests at the moment. 😭</p>
                             ) : (
                                 followRequests.map((followRequest) => (
                                     <div className="flex flex-row items-center justify-between rounded-lg border p-2 shadow-sm" key={followRequest.follower.id}>
@@ -103,18 +111,20 @@ export const ViewNotifiactions = () => {
                                             <Button
                                                 variant="outline"
                                                 size="sm"
+                                                disabled={isLoading}
                                                 className="border border-emerald-600 py-0.5 px-2 hover:bg-emerald-600 hover:text-white  transform hover:-translate-y-1 transition duration-400"
                                                 onClick={() => handleAcceptRequest(followRequest.follower.id, followRequest.follower.username)}
                                             >
-                                                Accept
+                                                {isLoading ? <LoadingSpinner size="default" isLabel>Accepting</LoadingSpinner> : "Accept"}
                                             </Button>
                                             <Button
                                                 variant="outline"
                                                 size="sm"
+                                                disabled={isLoading}
                                                 className="border border-destructive py-0.5 px-2 hover:bg-destructive hover:text-white transform hover:-translate-y-1 transition duration-400"
                                                 onClick={() => handleRejectRequest(followRequest.follower.id, followRequest.follower.username)}
                                             >
-                                                Reject
+                                                {isLoading ? <LoadingSpinner size="default" isLabel>Rejecting</LoadingSpinner> : "Reject"}
                                             </Button>
                                         </div>
 

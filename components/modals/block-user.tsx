@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -17,18 +18,23 @@ import {
     AlertDialogTrigger,
     AlertDialogDescription,
 } from "@/components/ui/alert-dialog"
+import { LoadingSpinner } from "@/components/loading-spinner";
 
 export const BlockUser = ({ otherUserId }: { otherUserId: string }) => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleBlock = async () => {
         try {
+            setIsLoading(true)
             await axios.post(`/api/block/${otherUserId}`);
 
             toast.success("Blocked successfully");
             router.refresh();
         } catch (error) {
             toast.error("Something went wrong. Please try again.");
+        } finally {
+            setIsLoading(false)
         }
     }
     return (
@@ -47,7 +53,7 @@ export const BlockUser = ({ otherUserId }: { otherUserId: string }) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex items-center">
                     <AlertDialogCancel>Nevermind</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleBlock} className="mt-2">Absolutely Sure!</AlertDialogAction>
+                    <AlertDialogAction onClick={handleBlock} className="mt-2">{isLoading ? <LoadingSpinner size="default" isLabel>Blocking</LoadingSpinner> : "Block"}</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

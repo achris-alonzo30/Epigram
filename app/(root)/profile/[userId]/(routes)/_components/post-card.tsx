@@ -5,6 +5,7 @@ import Image from "next/image";
 import { compareDesc } from "date-fns";
 import { Post, User } from "@prisma/client";
 
+
 import {
     Card,
     CardContent,
@@ -36,10 +37,9 @@ type PostCardProps = {
 }
 
 export const PostCard = ({ users, userId }: PostCardProps) => {
-    // TODO: User Collapsible from shadcn-ui for comments
     // TODO: User Carousel from shadcn-ui for images
     // TODO: Add Infinite scroll
-    // TODO: Show the first comment but once there more than 1 comment show the "View all comments"
+    
     const currentUserDetails = users;
     const currentUserFollowingDetails = users?.following.flatMap((followedUser) => followedUser.follower);
     const currentUserPosts = users?.posts || [];
@@ -77,15 +77,18 @@ export const PostCard = ({ users, userId }: PostCardProps) => {
                                 </div>
                             )}
                         </CardHeader>
-                        <CardContent>
-                            <Image src={post?.postImageUrl!} alt="post" height="350" width="350" className="aspect-square w-full h-full object-cover rounded-lg" />
+                        <CardContent>   
+                            <Image src={post?.postImageUrl!} alt="post" height="400" width="400" className="aspect-square w-full h-full object-cover rounded-xl" />
+
                         </CardContent>
-                        <CardFooter className="flex flex-col items-start px-4 gap-y-2">
-                            <ToggleButtons postId={post?.id} />
-                            <p className="text-sm text-zinc-500 dark:text-zinc-600 line-clamp-2 text-justify tracking-tight">
-                                {post?.caption!}
-                            </p>
-                            <span className="text-sm text-zinc-500 dark:text-zinc-600 line-clamp-1 text-justify tracking-tight">{formattedTags}</span>
+                        <CardFooter className="flex flex-col px-4 gap-y-2 w-full">
+                            <ToggleButtons postId={post?.id} postViews={post?.views} gap="gap-52" />
+                            <div className="flex flex-col items-start">
+                                <p className="text-sm text-zinc-500 dark:text-zinc-600 line-clamp-2 text-justify tracking-tight">
+                                    {post?.caption!}
+                                </p>
+                                <span className="text-sm text-zinc-500 dark:text-zinc-600 line-clamp-1 text-justify tracking-tight">{formattedTags}</span>
+                            </div>
                             <CommentForm post={post} userId={userId!} />
                         </CardFooter>
                     </Card>

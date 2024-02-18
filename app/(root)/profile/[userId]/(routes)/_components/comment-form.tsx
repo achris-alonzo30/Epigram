@@ -129,7 +129,7 @@ export const CommentForm = ({ post, userId }: CommentFormProps) => {
                 </button>
             )}
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full my-2">
                     <FormField
                         control={form.control}
                         name="comment"

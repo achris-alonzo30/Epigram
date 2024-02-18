@@ -1,9 +1,15 @@
+"use server";
+
 import { db } from "@/lib/db";
+import { Post } from "@prisma/client";
 import { getBlockedUsers } from "./block-service";
 
-export const getAllPosts = async (id: string) => {
+
+export const getAllPosts = async (
+  id: string,
+) => {
   try {
-    if ( !id ) return null;
+    if (!id) return null;
 
     const blockedUsers = await getBlockedUsers(id);
 
@@ -19,7 +25,7 @@ export const getAllPosts = async (id: string) => {
               followerId: {
                 in: blockedUsers?.map((block) => block.blockedId),
               },
-            }
+            },
           },
           include: {
             follower: {
@@ -35,22 +41,10 @@ export const getAllPosts = async (id: string) => {
       },
     });
 
+
     return posts;
   } catch (error) {
     console.log("[GET_ALL_POSTS]", error);
-    return null;
-  }
-};
-
-export const getCommentsOnPost = async (postId: string, commenterId: string) => {
-  try {
-    console.log("PostId:", postId);
-    console.log("CommenterId:", commenterId);
-    const comments = await db.comment.findMany({});
-
-    return comments;
-  } catch (error) {
-    console.log("[GET_POST_COMMENTS]", error);
     return null;
   }
 };
@@ -63,8 +57,18 @@ export const getAllSavedPosts = async (userId: string) => {
         isSaved: true,
       },
       include: {
-        post: true,
-      }
+        post: {
+          include: {
+            creator: {
+              select: {
+                id: true,
+                username: true,
+                profileImageUrl: true,
+              }
+            }
+          }
+        }
+      },
     });
 
     return posts;
@@ -74,3 +78,19 @@ export const getAllSavedPosts = async (userId: string) => {
   }
 };
 
+export const getNumberOfLikes = async (postId: string[] | undefined) => {
+  try {
+    const likes = await db.like.count({
+      where: {
+        postId: {
+          in: postId,
+        },
+      },
+    });
+
+    return likes;
+  } catch (error) {
+    console.log("[GET_NUMBER_OF_LIKES]", error);
+    return null;
+  }
+};

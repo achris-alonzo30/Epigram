@@ -55,7 +55,7 @@ export function EditPost({ post }: { post: Post }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       caption: post?.caption || "",
-      postImageUrl: post?.postImageUrl ||"",
+      postImageUrl: post?.postImageUrl || "",
       tags: post?.tags || "",
     }
   })
@@ -63,7 +63,7 @@ export function EditPost({ post }: { post: Post }) {
   useEffect(() => {
     form.reset({
       caption: post?.caption || "",
-      postImageUrl: post?.postImageUrl ||"",
+      postImageUrl: post?.postImageUrl || "",
       tags: post?.tags || "",
     })
   }, [post, form])
@@ -94,7 +94,7 @@ export function EditPost({ post }: { post: Post }) {
     <Dialog onOpenChange={handleClose}>
       <DialogTrigger asChild>
         <button className="-mt-1.5">
-            <Pencil className="h-4 w-4 text-zinc-500 hover:text-zinc-400 transform hover:-translate-y-1 transition duration-400 " />
+          <Pencil className="h-4 w-4 text-zinc-500 hover:text-zinc-400 transform hover:-translate-y-1 transition duration-400 " />
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] px-2">
@@ -130,7 +130,7 @@ export function EditPost({ post }: { post: Post }) {
                   name="tags"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel >Tags</FormLabel>
+                      <FormLabel>Tags</FormLabel>
                       <FormControl>
                         <Input
                           placeholder=""
@@ -163,10 +163,21 @@ export function EditPost({ post }: { post: Post }) {
             </div>
             <DialogFooter className="flex justify-end items-center gap-x-2">
               <Button variant="ghost" disabled={isLoading} onClick={() => form.reset()}>
-                Reset
+                {isLoading ?
+                  <LoadingSpinner
+                  size="default"
+                    isLabel>
+                    Resetting
+                  </LoadingSpinner>
+                  : "Reset"}
               </Button>
               <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
-                {isLoading ? <LoadingSpinner size="sm" /> : "Submit"}
+                {isLoading ?
+                  <LoadingSpinner
+                  size="default"
+                    isLabel>Submitting
+                  </LoadingSpinner>
+                  : "Submit"}
               </Button>
             </DialogFooter>
           </form>

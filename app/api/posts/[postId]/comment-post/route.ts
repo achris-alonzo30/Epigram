@@ -62,6 +62,17 @@ export async function POST(
         postId,
       },
     });
+    
+    await db.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        views: {
+          increment: 1,
+        }
+      }
+    })
 
     return NextResponse.json({ commentToPost }, { status: 200 });
   } catch (error) {

@@ -60,8 +60,8 @@ export const SetSettings = ({ children, userPrivacy, blockedUsers }: SetSettings
             await axios.patch(`/api/settings`, values);
 
             toast.success("Settings Updated successfully");
-            form.reset();
             router.refresh();
+            form.reset();
         } catch (error) {
             toast.error("Something went wrong. Please try again.");
         } finally {
@@ -73,7 +73,6 @@ export const SetSettings = ({ children, userPrivacy, blockedUsers }: SetSettings
         setOpen(false);
         form.reset();
     }
-
 
     return (
         <Dialog onOpenChange={handleClose}>
@@ -131,7 +130,7 @@ export const SetSettings = ({ children, userPrivacy, blockedUsers }: SetSettings
                         </div>
                         <DialogFooter className="flex justify-end items-center gap-x-2 px-4">
                             <Button type="submit" disabled={isLoading} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] duration-200 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto px-6 py-3 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">
-                                {isLoading ? <LoadingSpinner size="sm" /> : "Update"}
+                                {isLoading ?  <LoadingSpinner size="default" isLabel>Updating</LoadingSpinner> : "Update"}
                             </Button>
                         </DialogFooter>
                     </form>

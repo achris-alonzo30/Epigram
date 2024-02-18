@@ -1,7 +1,9 @@
+import { formatNumber } from "@/lib/format-number";
+
 type UserProfileSocialCountProps = {
-    userPostsCount: number;
-    userFollowersCount: number;
-    userFollowingCount: number;
+    userPostsCount: number | null;
+    userFollowersCount: number | null;
+    userFollowingCount: number | null;
 }
 
 export const UserProfileSocialCount = ({ userPostsCount, userFollowersCount, userFollowingCount }: UserProfileSocialCountProps) => {
@@ -11,19 +13,19 @@ export const UserProfileSocialCount = ({ userPostsCount, userFollowersCount, use
             <div className="flex items-center gap-x-2 text-sm text-zinc-500">
                 <div className="flex flex-col items-center justify-center gap-y-2">
                     <p className="font-bold underline">Followers</p>
-                    <span>{userFollowersCount | 0}</span>
+                    <span>{formatNumber(userFollowersCount)}</span>
                 </div>
             </div>
             <div className="flex items-center gap-x-2 text-sm text-zinc-500">
                 <div className="flex flex-col items-center justify-center gap-y-2">
                     <p className="font-bold underline">Following</p>
-                    <span>{userFollowingCount | 0}</span>
+                    <span>{formatNumber(userFollowingCount)}</span>
                 </div>
             </div>
             <div className="flex items-center gap-x-2 text-sm text-zinc-500">
                 <div className="flex flex-col items-center justify-center gap-y-2">
                     <p className="font-bold underline">Posts</p>
-                    <span>{userPostsCount | 0}</span>
+                    <span>{formatNumber(userPostsCount)}</span>
                 </div>
 
             </div>

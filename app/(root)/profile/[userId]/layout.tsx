@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getLoginUser } from "@/actions/auth-service";
 import { getBlockedUsers } from "@/actions/block-service";
-
+import { getAllUsersInDb } from "@/actions/search-service"
 import { Navbar } from "@/app/(root)/profile/[userId]/_components/navbar/navbar";
 import { Leftbar } from "@/app/(root)/profile/[userId]/_components/leftbar/leftbar";
 import { Rightbar } from "@/app/(root)/profile/[userId]/_components/rightbar/rightbar";
@@ -9,15 +9,15 @@ import { Rightbar } from "@/app/(root)/profile/[userId]/_components/rightbar/rig
 
 const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
     const user = await getLoginUser();
-
+    
     if (!user) return redirect("/");
 
     const blockedUsers = await getBlockedUsers(user?.id)
-    
+    const users = await getAllUsersInDb(user?.id);
     return (
         <div className="h-full">
             <div className="h-[60px] md:pl-56 fixed inset-y-0 w-full z-50">
-                <Navbar user={user} blockedUsers={blockedUsers}/>
+                <Navbar user={user} allUsers={users} blockedUsers={blockedUsers}/>
             </div>
             <div className="hidden md:flex flex-col h-full w-56 fixed inset-y-0 z-50">
                 <Leftbar userId={user?.id!} userPrivacy={user?.isPrivate} blockedUsers={blockedUsers} />

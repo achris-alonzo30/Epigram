@@ -71,6 +71,17 @@ export async function POST(
         },
       });
 
+      await db.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          views: {
+            increment: 1,
+          }
+        }
+      })
+
       return new NextResponse("Post UnSaved", { status: 200 });
     } else {
       await db.save.create({
@@ -83,6 +94,17 @@ export async function POST(
           post: true,
         },
       });
+
+      await db.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          views: {
+            increment: 1,
+          }
+        }
+      })
 
       return new NextResponse("Post Saved", { status: 200 });
     }

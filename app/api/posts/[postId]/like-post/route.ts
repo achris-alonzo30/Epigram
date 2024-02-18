@@ -67,6 +67,17 @@ export async function POST(
         },
       });
 
+      await db.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          views: {
+            increment: 1,
+          }
+        }
+      })
+
       return new NextResponse("Post UnLiked", { status: 200 });
     } else {
       await db.like.create({
@@ -75,6 +86,17 @@ export async function POST(
           postId,
         },
       });
+
+      await db.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          views: {
+            increment: 1,
+          }
+        }
+      })
 
       return new NextResponse("Post Liked", { status: 200 });
     }

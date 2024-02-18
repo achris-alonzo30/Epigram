@@ -19,10 +19,17 @@ const spinnerVariants = cva(
     }
 )
 
-interface SpinnerProps extends VariantProps<typeof spinnerVariants> {}
+type LoadingSpinnerProps = {
+    size: VariantProps<typeof spinnerVariants>["size"];
+    isLabel?: boolean;
+    children?: React.ReactNode
+}
 
-export const LoadingSpinner = ({size}: SpinnerProps) => {
+export const LoadingSpinner = ({size, isLabel, children }: LoadingSpinnerProps) => {
   return (
-    <Loader className={cn(spinnerVariants({size}))} />
+    <div className="flex flex-row items-center gap-x-2">
+        <Loader className={cn(spinnerVariants({size}))} />
+        {isLabel && <span className="text-sm">{children}</span>}
+    </div>
   )
 }
