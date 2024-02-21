@@ -57,7 +57,7 @@ export const SearchBar = ({ allUsers }: SearchBarProps) => {
       user.username.toLowerCase().includes(input.toLowerCase())
     ) as { id: string; username: string; profileImageUrl: string | null }[] | null; // Type assertion
     setFilteredUsers(users);
-  }, 500);
+  }, 300);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;

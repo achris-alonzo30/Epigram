@@ -1,13 +1,8 @@
-"use client";
-
-import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import { User } from "@prisma/client";
-import { useState, useEffect } from "react";
 
-import { Button } from "@/components/ui/button";
+import { FollowButton } from "@/components/follow-button";
 
 type ActivityTimelineProps = {
     users: User[];
@@ -15,43 +10,6 @@ type ActivityTimelineProps = {
 }
 
 export const Recommendations = ({ users, loginUser }: ActivityTimelineProps) => {
-    const [ followedUsers, setFollowedUsers ] = useState<string[]>([])
-
-    useEffect(() => {
-        const fetchFollowStatus = async () => {
-            try {
-                const response  = await axios.get(`/api/follow`)
-                
-                setFollowedUsers(response.data.followingIds)
-            } catch (error) {
-                console.log("[GET_FOLLOWING_STATUS]", error)
-            }
-        }
-
-        fetchFollowStatus()
-    }, [loginUser.id, users])
-    
-    const handleFollow = async (followingId: string, followingUsername: string) => {
-        try {
-            await axios.post(`/api/follow/${followingId}`)
-            toast.success(`Follow Request Sent to ${followingUsername} 🎉`)
-        
-            setFollowedUsers((prevUsers) =>[...prevUsers, followingId])
-        } catch (error) {
-            toast.error(`Error following ${followingUsername}. Please try again.`)
-        }
-    }
-
-    const handleUnFollow = async (followingId: string, followingUsername: string) => {
-        try {
-            await axios.delete(`/api/follow/${followingId}`)
-            toast.success(`Successfully unfollowed ${followingUsername} 😭`)
-       
-            setFollowedUsers((prevUsers) => prevUsers.filter((userId) => userId !== followingId))
-        } catch (error) {
-            toast.error(`Error unfollowing ${followingUsername}. Please try again.`)
-        }
-    }
 
     return (
         <main className="h-full flex flex-col my-1">
@@ -64,7 +22,7 @@ export const Recommendations = ({ users, loginUser }: ActivityTimelineProps) => 
                                 <Link href={`/profile/${user.id}/user-profile`} className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 cursor-pointer hover:underline hover:text-[#7600FF]/90 line-clamp-2">
                                     {user.username}
                                 </Link>
-                                <Button onClick={() => (followedUsers.includes(user.id) ? handleUnFollow(user.id, user.username) : handleFollow(user.id, user.username))} className="items-center inline-flex focus:outline-none justify-center text-white bg-[#7600FF] py-1 px-2 focus-visible:outline-black focus-visible:ring-black font-medium hover:bg-[#7600FF]/70 hover:border-white hover:text-white lg:w-auto gap-x-2 rounded-lg text-center w-full transform hover:-translate-y-1 transition duration-400">{followedUsers.includes(user.id) ? "UnFollow": "Follow"}</Button>
+                                <FollowButton followingUser={user} users={users} loginUser={loginUser}/>
                             </div>
                         ))}
                     </div>
