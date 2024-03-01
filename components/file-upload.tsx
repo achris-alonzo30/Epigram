@@ -7,6 +7,7 @@ import { ourFileRouter } from "@/app/api/uploadthing/core";
 import "@uploadthing/react/styles.css";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 type FileUploadProps = {
     onChange: (url?: string) => void;
@@ -48,12 +49,17 @@ export const FileUpload = ({ onChange, endpoint, value }: FileUploadProps) => {
         )
     }
     return (
-        <UploadDropzone
-            endpoint={endpoint}
-            onClientUploadComplete={(res) => { onChange(res?.[0].url) }}
-            onUploadError={(error: Error) => {
-                toast.error(`Error: ${error?.message}`)
-            }}
-        />
+        <div className="flex flex-col items-center gap-y-2">
+            <UploadDropzone
+                endpoint={endpoint}
+                onClientUploadComplete={(res) => { onChange(res?.[0].url) }}
+                onUploadError={(error: Error) => {
+                    toast.error(`Error: ${error?.message}`)
+                }}
+            />
+            <Label className="text-sm font-medium text-muted-foreground">
+                To uploading multiple files you can select then drag and drop the files here.
+            </Label>
+        </div>
     )
 }
