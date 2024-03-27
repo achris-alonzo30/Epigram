@@ -54,7 +54,7 @@ export const ViewFollowRequests = () => {
         }
 
         fetchFollowRequests();
-    }, [])
+    }, [router])
 
 
     const handleAcceptRequest = async (followerId: string, followerUsername: string) => {

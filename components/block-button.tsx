@@ -31,7 +31,7 @@ export const BlockButton = ({ otherUserId, style }: BlockedButton) => {
         }
 
         fetchBlockedStatus();
-    }, [otherUserId]);
+    }, [otherUserId, router]);
 
     const handleBlock = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

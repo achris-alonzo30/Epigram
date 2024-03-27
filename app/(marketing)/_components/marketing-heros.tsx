@@ -8,7 +8,7 @@ export const Heros = () => {
 
   return (
     <div className="items-center w-full px-5 py-16 mx-auto max-w-7xl lg:pt-36 lg:px-16 md:px-12">
-      <div className="max-w-3xl  mx-auto text-center ">
+      <div className="mx-auto text-center ">
         <motion.h1
           className="font-extrabold text-6xl lg:text-7xl  text-zinc-800 dark:text-zinc-100"
           initial={{ opacity: 0, y: 100 }}
@@ -44,7 +44,7 @@ export const Heros = () => {
         </motion.p>
       </div>
       <motion.div
-        className="flex flex-col justify-center gap-3 mt-6 sm:flex-row mx-auto w-full"
+        className="flex flex-col justify-center gap-3 mt-6 sm:flex-row mx-auto"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
@@ -55,11 +55,9 @@ export const Heros = () => {
         }}
         viewport={{ once: true }}
       > 
-        
           <ButtonRotatingBackgroundGradient route="/create-profile">
            🪐 Enter to Petcentric Universe 🪐
           </ButtonRotatingBackgroundGradient>
-        
       </motion.div>
     </div>
   );
