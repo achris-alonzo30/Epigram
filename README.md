@@ -90,8 +90,8 @@ $ npm run dev or bun run dev
 Copy this and paste it in your .env or .env.local.
 ```
 // Signin to Clerk: https://dashboard.clerk.com/
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y2FwaXRhbC1zYXdmaXNoLTExLmNsZXJrLmFjY291bnRzLmRldiQ
-CLERK_SECRET_KEY=sk_test_1gAeR4zzF764gPLcZhAkXvDK8NUyjAj2mN98UiUjr6
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
 // Uploadthing is a Storage Server. You can start for free: https://uploadthing.com/
 UPLOADTHING_SECRET=
