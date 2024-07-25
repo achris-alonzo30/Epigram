@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <img src="https://github.com/user-attachments/assets/98d32b0b-403d-494d-b982-d078a567856a" alt="Hireme" width="200">
+  <img src="https://github.com/user-attachments/assets/98d32b0b-403d-494d-b982-d078a567856a" alt="Epigram" width="200">
   <br>
   Epigram
   <br>
