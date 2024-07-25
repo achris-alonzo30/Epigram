@@ -53,6 +53,7 @@
 | **Web Framework** | [Next.js](https://github.com/vercel/next.js) | Server-side rendering and static site generation for SEO and performance. |
 | **Language** | [TypeScript](https://github.com/microsoft/TypeScript) | Static typing for improved code maintainability and fewer errors. |
 | **CSS Framework** | [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) | Utility-first approach for rapid UI development and customization. |
+| **Storage Server** | [Uploadthing](https://github.com/pingdotgg/uploadthing) | Secure and scalable storage solution for your notes, ensuring data persistence and accessibility across devices. |
 | **UI Library** | [Shadcn-UI](https://github.com/shadcn-ui/ui) | Pre-built components for a consistent and modern UI experience. |
 | **NeonTech** | [NeonTech](https://github.com/neondatabase/neon) | Real-time data management, serverless functions, and efficient queries. |
 | **Authentication** | [Clerk](https://github.com/clerk/clerk-docs) | Seamless user authentication and authorization. |
