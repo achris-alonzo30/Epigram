@@ -12,25 +12,25 @@
 <h4 align="center">Epigram is a platform to share your pets story.</h4>
 
 
-## Landing Page To Get Started
+## 💻 Landing Page To Get Started 💻
 
 <img width="1469" alt="Screenshot 2024-07-25 at 5 46 32 PM" src="https://github.com/user-attachments/assets/f6f659e6-7638-4783-9701-94798c935f6e">
 
-## Homepage To View Other Pets and Your Pet's Post
+## 🐶 Homepage To View Other Pets and Your Pet's Post 🐶
 
 <img width="1469" alt="Screenshot 2024-07-25 at 5 48 51 PM" src="https://github.com/user-attachments/assets/7c38a214-169c-49ef-9585-3efea003dcd4">
 
 
-## Profile Page of Your Lovely Pet
+## 🐩 Profile Page of Your Lovely Pet 🐩
 
 <img width="1469" alt="Screenshot 2024-07-25 at 5 48 58 PM" src="https://github.com/user-attachments/assets/88c61296-fa5d-432c-9e39-c03f3559e802">
 
 
-## Form for Creating Post with Form Validation with Zod
+## 📝 Form for Creating Post with Form Validation with Zod 📝
 
 <img width="1469" alt="Screenshot 2024-07-25 at 5 49 18 PM" src="https://github.com/user-attachments/assets/fbd03a5e-a456-4b9f-9014-e70b62d180f2">
 
-## Viewing your Pet Post, Likes, and Comments 
+## 💯 Viewing your Pet Post, Likes, and Comments 💯
 
 <img width="1469" alt="Screenshot 2024-07-25 at 5 49 50 PM" src="https://github.com/user-attachments/assets/8d2ead0e-bc84-465b-82a2-5cb35a5bd670">
 
@@ -45,7 +45,7 @@
 | **5. Clean, Modern UI using TailwindCSS and Shadcn-UI** | A visually appealing and user-friendly interface that provides a seamless experience across devices, built with cutting-edge technologies for optimal performance and responsiveness. |
 
 
-## 📚 Tech Stack
+## 📚 Tech Stack 📚
 
 | <div style="width:140px">**Category**</div> | <div style="width:100px">**Choice**</div> | **Descriptions** |
 |---|---|---|
@@ -62,7 +62,7 @@
 | **React-Hook-Form** | [React-Hook-Form](https://github.com/react-hook-form/react-hook-form) | React Hooks for form state management and validation. |
 | **Framer Motion** | [Framer-Motion](https://github.com/framer/motion) | Motion library for React. |
 
-## Getting started
+## 🔥 Getting started 🔥
 
 To clone and run this application, you'll need [Git](https://github.com/achris-alonzo30/Epigram.git) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
@@ -80,7 +80,7 @@ $ npm install or bun install
 $ npm run dev or bun run dev
 ```
 
-## **Prerequisites**
+## ‼️ **Prerequisites** ‼️
 
 > [Neon.Tech](https://neon.tech/) Create your account on Neon.Tech for free and get your API keys by following the instructions on the given link.
 
